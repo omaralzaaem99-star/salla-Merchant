@@ -12,7 +12,8 @@
     environment:
       ios_signing:
         provisioning_profiles:
-          - SallaPushProduction
+          - profile: SallaPushProduction
+            environment_variable: SALLA_PROFILE_PATH
         certificates:
           - SallaDistribution
 
@@ -33,91 +34,61 @@
           set -e
           xcode-project use-profiles --project ios/Runner.xcodeproj
 
-      - name: Prepare explicit export options
+      - name: Inspect selected provisioning profile
         script: |
           set -e
 
-          PROFILE_DIR="$HOME/Library/MobileDevice/Provisioning Profiles"
-          MATCHED_PROFILE=""
+          echo "Profile path:"
+          echo "$SALLA_PROFILE_PATH"
 
-          echo "Searching for App Store profile for $BUNDLE_ID..."
+          security cms -D -i "$SALLA_PROFILE_PATH" > /tmp/salla_profile.plist
 
-          for PROFILE in "$PROFILE_DIR"/*.mobileprovision; do
-            [ -e "$PROFILE" ] || continue
-
-            TMP_PLIST="$(mktemp)"
-            security cms -D -i "$PROFILE" > "$TMP_PLIST"
-
-            APP_IDENTIFIER=$(/usr/libexec/PlistBuddy \
-              -c "Print :Entitlements:application-identifier" \
-              "$TMP_PLIST" 2>/dev/null || true)
-
-            APS_ENV=$(/usr/libexec/PlistBuddy \
-              -c "Print :Entitlements:aps-environment" \
-              "$TMP_PLIST" 2>/dev/null || true)
-
-            if [[ "$APP_IDENTIFIER" == *".$BUNDLE_ID" ]] && \
-               [[ "$APS_ENV" == "production" ]]; then
-
-              MATCHED_PROFILE="$PROFILE"
-              cp "$TMP_PLIST" /tmp/salla_profile.plist
-              rm -f "$TMP_PLIST"
-              break
-            fi
-
-            rm -f "$TMP_PLIST"
-          done
-
-          if [ -z "$MATCHED_PROFILE" ]; then
-            echo "ERROR: No provisioning profile found for $BUNDLE_ID with aps-environment=production"
-            exit 1
-          fi
-
-          PROFILE_UUID=$(/usr/libexec/PlistBuddy \
-            -c "Print :UUID" /tmp/salla_profile.plist)
-
-          PROFILE_NAME=$(/usr/libexec/PlistBuddy \
-            -c "Print :Name" /tmp/salla_profile.plist)
-
-          TEAM_ID=$(/usr/libexec/PlistBuddy \
-            -c "Print :TeamIdentifier:0" /tmp/salla_profile.plist)
+          PROFILE_NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" /tmp/salla_profile.plist)
+          PROFILE_UUID=$(/usr/libexec/PlistBuddy -c "Print :UUID" /tmp/salla_profile.plist)
+          TEAM_ID=$(/usr/libexec/PlistBuddy -c "Print :TeamIdentifier:0" /tmp/salla_profile.plist)
+          APP_IDENTIFIER=$(/usr/libexec/PlistBuddy -c "Print :Entitlements:application-identifier" /tmp/salla_profile.plist)
+          APS_ENV=$(/usr/libexec/PlistBuddy -c "Print :Entitlements:aps-environment" /tmp/salla_profile.plist 2>/dev/null || true)
 
           echo "Profile Name: $PROFILE_NAME"
           echo "Profile UUID: $PROFILE_UUID"
           echo "Team ID: $TEAM_ID"
-          echo "Push entitlement: production"
+          echo "Application Identifier: $APP_IDENTIFIER"
+          echo "Push entitlement: $APS_ENV"
 
-          cp /Users/builder/export_options.plist ios/ExportOptions.plist
+          if [[ "$APP_IDENTIFIER" != *".$BUNDLE_ID" ]]; then
+            echo "ERROR: Bundle ID does not match selected provisioning profile"
+            exit 1
+          fi
 
-          /usr/libexec/PlistBuddy \
-            -c "Delete :teamID" \
-            ios/ExportOptions.plist 2>/dev/null || true
+          if [ "$APS_ENV" != "production" ]; then
+            echo "ERROR: Selected profile does not contain aps-environment=production"
+            exit 1
+          fi
 
-          /usr/libexec/PlistBuddy \
-            -c "Delete :signingStyle" \
-            ios/ExportOptions.plist 2>/dev/null || true
+          cat > ios/ExportOptions.plist <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>method</key>
+              <string>app-store-connect</string>
+              <key>teamID</key>
+              <string>$TEAM_ID</string>
+              <key>signingStyle</key>
+              <string>manual</string>
+              <key>signingCertificate</key>
+              <string>Apple Distribution</string>
+              <key>provisioningProfiles</key>
+              <dict>
+                  <key>$BUNDLE_ID</key>
+                  <string>$PROFILE_UUID</string>
+              </dict>
+              <key>destination</key>
+              <string>export</string>
+          </dict>
+          </plist>
+          EOF
 
-          /usr/libexec/PlistBuddy \
-            -c "Delete :provisioningProfiles" \
-            ios/ExportOptions.plist 2>/dev/null || true
-
-          /usr/libexec/PlistBuddy \
-            -c "Add :teamID string $TEAM_ID" \
-            ios/ExportOptions.plist
-
-          /usr/libexec/PlistBuddy \
-            -c "Add :signingStyle string manual" \
-            ios/ExportOptions.plist
-
-          /usr/libexec/PlistBuddy \
-            -c "Add :provisioningProfiles dict" \
-            ios/ExportOptions.plist
-
-          /usr/libexec/PlistBuddy \
-            -c "Add :provisioningProfiles:$BUNDLE_ID string $PROFILE_UUID" \
-            ios/ExportOptions.plist
-
-          echo "=== ExportOptions.plist ==="
           plutil -p ios/ExportOptions.plist
 
       - name: Build iOS IPA
@@ -135,7 +106,7 @@
             -type f -name "*.ipa" | head -n 1)
 
           if [ -z "$IPA_FILE" ]; then
-            echo "ERROR: IPA WAS NOT GENERATED"
+            echo "ERROR: IPA NOT FOUND"
             exit 1
           fi
 
@@ -152,4 +123,3 @@
         auth: integration
         submit_to_testflight: true
         submit_to_app_store: false
-
