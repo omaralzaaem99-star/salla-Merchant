@@ -1,4 +1,4 @@
-﻿workflows:
+workflows:
   ios-release:
     name: Salla iOS
     instance_type: mac_mini_m2
@@ -89,7 +89,7 @@
 
           flutter build ipa --release \
             --build-name=1.0.0 \
-            --build-number="$PROJECT_BUILD_NUMBER" \
+            --build-number=22 \
             --export-options-plist="$CM_BUILD_DIR/sala_store/ios/ExportOptions.plist"
 
       - name: Verify IPA
