@@ -1,10 +1,8 @@
 ﻿workflows:
-  ios-release:
-    name: Salla iOS Release
+  salla-ios:
+    name: Salla iOS
     instance_type: mac_mini_m2
     max_build_duration: 120
-
-    working_directory: sala_store
 
     integrations:
       app_store_connect: "SIQ Codemagic"
@@ -18,23 +16,44 @@
 
       flutter: stable
       xcode: latest
+      cocoapods: default
 
     scripts:
       - name: Get Flutter packages
         script: |
+          cd "$CM_BUILD_DIR/sala_store"
           flutter pub get
+
+      - name: Install CocoaPods dependencies
+        script: |
+          cd "$CM_BUILD_DIR/sala_store"
+          find . -name "Podfile" -execdir pod install \;
 
       - name: Set up iOS code signing
         script: |
+          cd "$CM_BUILD_DIR/sala_store"
           xcode-project use-profiles
 
       - name: Build iOS IPA
         script: |
+          cd "$CM_BUILD_DIR/sala_store"
           flutter build ipa --release \
             --export-options-plist=/Users/builder/export_options.plist
 
+      - name: Find IPA
+        script: |
+          echo "Looking for IPA files..."
+          find "$CM_BUILD_DIR" -name "*.ipa" -type f -print
+
+      - name: Verify IPA
+        script: |
+          echo "=== Searching for IPA ==="
+          find "$CM_BUILD_DIR" -type f -name "*.ipa" -print
+          echo "=== IPA search completed ==="
+
     artifacts:
-      - build/ios/ipa/*.ipa
+      - "**/*.ipa"
+      - sala_store/build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
 
     publishing:
