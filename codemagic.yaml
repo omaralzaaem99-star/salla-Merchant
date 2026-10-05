@@ -25,23 +25,27 @@
         script: |
           flutter pub get
 
+      - name: Install CocoaPods dependencies
+        script: |
+          find . -name "Podfile" -execdir pod install \;
+
       - name: Set up iOS code signing
         script: |
-          xcode-project use-profiles --project ios/Runner.xcodeproj
+          xcode-project use-profiles
 
       - name: Build iOS IPA
         script: |
-          xcode-project build-ipa \
-            --project ios/Runner.xcodeproj \
-            --scheme Runner
+          flutter build ipa --release \
+            --export-options-plist=/Users/builder/export_options.plist
 
-      - name: Verify IPA
+      - name: Verify generated IPA
         script: |
-          echo "=== IPA files ==="
+          echo "=== IPA SEARCH ==="
           IPA_PATH=$(find "$CM_BUILD_DIR/sala_store/build/ios/ipa" -type f -name "*.ipa" | head -n 1)
 
           if [ -z "$IPA_PATH" ]; then
-            echo "ERROR: No IPA generated"
+            echo "ERROR: IPA was not generated"
+            find "$CM_BUILD_DIR/sala_store/build/ios" -maxdepth 4 -type f -print
             exit 1
           fi
 
