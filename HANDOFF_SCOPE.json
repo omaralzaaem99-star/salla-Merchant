@@ -1,0 +1,36 @@
+{
+  "app": "sala_store",
+  "displayName": "Salla Merchant",
+  "version": "1.0.0+6",
+  "includedSharedPackages": [
+    "salla_auth",
+    "salla_data"
+  ],
+  "includedFirebaseClientConfig": true,
+  "productionProject": "sela-food-prod",
+  "excluded": [
+    "admin/driver/customer apps",
+    "backend and Firebase rules",
+    "live data and backups",
+    "signing and service account credentials",
+    "builds, logs, caches, personal SDK paths"
+  ],
+  "exportOnlyChanges": [
+    "Android configs restricted to store client only; store values unchanged",
+    "Non-native Dart fallback blocked; Android/iOS use included native files",
+    "company README, VS Code launch and empty signing template added",
+    "iOS target 15.0 unchanged from current owner source"
+  ],
+  "includedFeatures": [
+    "store-specific nearest-first delivery areas and flexible Arabic place search",
+    "in-app merchant deletion request with manager-approved actual server deletion and retained financial history",
+    "public privacy/support links before login and privacy/support/deletion/terms in settings",
+    "store courier order history with goods amounts, date, order number, area and driver",
+    "delivery fares hidden from report and copied support text",
+    "self-managed optional six-digit report PIN with change and disable"
+  ],
+  "backendAccessGranted": false,
+  "iOSBuildValidated": false,
+  "signingIncluded": false,
+  "apnsConfigured": false
+}

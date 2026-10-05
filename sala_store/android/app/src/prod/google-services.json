@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "340826672928",
+    "firebase_url": "https://sela-food-prod-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "sela-food-prod",
+    "storage_bucket": "sela-food-prod.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340826672928:android:411b12831f5979b6479145",
+        "android_client_info": {
+          "package_name": "com.selafood.store"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG1GVjunMuWXiea1tyJLxTPWO1tgvj8TE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

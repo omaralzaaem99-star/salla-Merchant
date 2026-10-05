@@ -1,0 +1,18 @@
+name: salla_data
+description: Shared Salla realtime data bridge for Firebase and LightNode.
+publish_to: none
+
+version: 0.1.0
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+
+dependencies:
+  firebase_auth: ^6.0.0
+  firebase_core: ^4.10.0
+  firebase_database: ^12.4.2
+  http: ^1.5.0
+  web_socket_channel: ^3.0.3
+
+dev_dependencies:
+  test: ^1.25.8

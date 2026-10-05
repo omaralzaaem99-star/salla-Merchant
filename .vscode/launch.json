@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Salla store - Android development",
+      "cwd": "${workspaceFolder}/sala_store",
+      "program": "lib/main.dart",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "toolArgs": ["--flavor", "dev", "--dart-define=SALLA_ENV=dev", "--dart-define=SALLA_DATA_BACKEND=firebase"]
+    },
+    {
+      "name": "Salla store - iOS development (Mac)",
+      "cwd": "${workspaceFolder}/sala_store",
+      "program": "lib/main.dart",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "toolArgs": ["--dart-define=SALLA_ENV=dev", "--dart-define=SALLA_DATA_BACKEND=firebase"]
+    }
+  ]
+}

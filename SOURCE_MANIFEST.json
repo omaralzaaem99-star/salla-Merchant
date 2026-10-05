@@ -1,0 +1,690 @@
+{
+  "schemaVersion": 1,
+  "profile": "production-native-client",
+  "createdAt": "2026-10-05T14:44:08.948Z",
+  "fingerprint": "48ddf6ff08face1c349a6a6d5d1ba60a7ba0b5f8595f70f52ce3c616bbd2c586",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 358,
+      "sha256": "96f6b91de6ae4b563a931a0c0529eae05cb70f53ffdd1bae8de026d554d09357",
+      "handoffOnly": true
+    },
+    {
+      "path": ".vscode/launch.json",
+      "bytes": 708,
+      "sha256": "68a1408b57d6e930a933dec23c8c380a42b73a60773e2ded9f142558283f9d1d",
+      "handoffOnly": true
+    },
+    {
+      "path": "packages/salla_auth/lib/salla_auth.dart",
+      "bytes": 134930,
+      "sha256": "59b942f446a77b12bc4f0d67b47d8cb292d82127d863a33597c83891aafa77f1"
+    },
+    {
+      "path": "packages/salla_auth/lib/src/app_check_monitoring.dart",
+      "bytes": 4184,
+      "sha256": "eb15d2a729013f20aa5038e92e331c54083d155eb95b072fe25e25d508cb19da"
+    },
+    {
+      "path": "packages/salla_auth/pubspec.yaml",
+      "bytes": 492,
+      "sha256": "46ed59a08e791ac5efa86bf5b04a8b61ae6b039a95d8f7d57c7a5fb1019b5b6c"
+    },
+    {
+      "path": "packages/salla_data/lib/salla_data.dart",
+      "bytes": 91679,
+      "sha256": "81f33281e94531b2604a17804c72236bf9f7343449a17d960bcee2b95364f141"
+    },
+    {
+      "path": "packages/salla_data/pubspec.yaml",
+      "bytes": 335,
+      "sha256": "6a63dbc681d4d27e816d379c90a093f2e369fa16c5d457b0ee5e51658b60c121"
+    },
+    {
+      "path": "README_COMPANY_AR.md",
+      "bytes": 15981,
+      "sha256": "82d1aa460120e960914c251b7516ec06c70a7bfa7029e77dc09db0f89d65e5d5",
+      "handoffOnly": true
+    },
+    {
+      "path": "sala_store/.gitignore",
+      "bytes": 703,
+      "sha256": "4a8d984279954e0461e0ffef9b9e7455340a0a762f227c01065a53482a83a4f1"
+    },
+    {
+      "path": "sala_store/.metadata",
+      "bytes": 964,
+      "sha256": "4e09b7d407e8bb43b0d670098fbac7924da27b75a68c35ba7b45f0003a7a11fe"
+    },
+    {
+      "path": "sala_store/analysis_options.yaml",
+      "bytes": 1420,
+      "sha256": "e0ea485cfdbc3e12b93efb8679a5ea73ebfe20ea4ca0c473dc594fc2fb274ed5"
+    },
+    {
+      "path": "sala_store/android/.gitignore",
+      "bytes": 253,
+      "sha256": "b027c9de1011765c015e5819bf857c0d75bfcd0886fb01721c091159012e50f1"
+    },
+    {
+      "path": "sala_store/android/app/build.gradle.kts",
+      "bytes": 4016,
+      "sha256": "05e6a2485ca41d19031f1e6b68083f61b573dced6bc25122fe53a650607125f2"
+    },
+    {
+      "path": "sala_store/android/app/src/debug/AndroidManifest.xml",
+      "bytes": 378,
+      "sha256": "30b0832ed8b92dfbd6ae2abfa939ccf26333d37600056b1572bd4a397a18a74b"
+    },
+    {
+      "path": "sala_store/android/app/src/dev/google-services.json",
+      "bytes": 759,
+      "sha256": "df2af1f3b12af41e7008b099ef9ae4a398fcfd63fb8f158d1e7d9ad148955650",
+      "handoffOnly": true
+    },
+    {
+      "path": "sala_store/android/app/src/main/AndroidManifest.xml",
+      "bytes": 5927,
+      "sha256": "3aa1b20267707e0281df813087195809a308ae551caebaa055d778d815cd3e02"
+    },
+    {
+      "path": "sala_store/android/app/src/main/kotlin/com/salla/sala_store/MainActivity.kt",
+      "bytes": 8577,
+      "sha256": "da23a1101da3bc38dc313213759aac1033ca626bd69a119db5df7d3da0d83861"
+    },
+    {
+      "path": "sala_store/android/app/src/main/kotlin/com/salla/sala_store/UrgentOrderMessagingService.kt",
+      "bytes": 8669,
+      "sha256": "0460590a5a5f3269010953ae34495a1db3b229fb5e0f8f09592b999e8270709f"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/drawable-hdpi/salla_launch_logo.png",
+      "bytes": 33905,
+      "sha256": "0c299d7cad229d7679a4a90002a02bb082969f5eb51cc1199bd5d16210f3c607"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/drawable-mdpi/salla_launch_logo.png",
+      "bytes": 17658,
+      "sha256": "6512eacb90362f71e7cf717b07bfc9ccf88303ec981560c7c6172e9b9c2d414a"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/drawable-v21/launch_background.xml",
+      "bytes": 386,
+      "sha256": "3f04af1b7d1aa7a5fea55938b4779311c5fbbb491742a655c2d4d876544fb52b"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/drawable-xhdpi/salla_launch_logo.png",
+      "bytes": 54837,
+      "sha256": "c8e1ea61a58b34e378adfb6b584310e81651dc6ccd4bdaca3c64541810681757"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/drawable-xxhdpi/salla_launch_logo.png",
+      "bytes": 113578,
+      "sha256": "14294af22b2c1df7dedd8763b984a9152e4cb34b9db27548aa4ba71a68665c5f"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/drawable-xxxhdpi/salla_launch_logo.png",
+      "bytes": 198407,
+      "sha256": "ef804213176dfaa692164c4ef4e3d65f29551a5c484da8a30b3e2b005de825b0"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/drawable/launch_background.xml",
+      "bytes": 386,
+      "sha256": "3f04af1b7d1aa7a5fea55938b4779311c5fbbb491742a655c2d4d876544fb52b"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml",
+      "bytes": 273,
+      "sha256": "0597f05b5aea16b81e4224de9d8903d7bbf68bf34e53480b76462d91b3cff840"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml",
+      "bytes": 273,
+      "sha256": "0597f05b5aea16b81e4224de9d8903d7bbf68bf34e53480b76462d91b3cff840"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png",
+      "bytes": 29413,
+      "sha256": "c46a56cf8d70631fe80a4c4185b37cc4eb49cddebc8435869946cf60f8734e18"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png",
+      "bytes": 11266,
+      "sha256": "9b9585a8a83386bfb990b87e1bc3ca8a7f47a4e6958c0e305552650c5a866f23"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-hdpi/ic_launcher.png",
+      "bytes": 11266,
+      "sha256": "9b9585a8a83386bfb990b87e1bc3ca8a7f47a4e6958c0e305552650c5a866f23"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png",
+      "bytes": 14900,
+      "sha256": "016a33bf57c8e88bf5a379713bda67074b89449eed3b00d1019d48550a29d4ae"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png",
+      "bytes": 5760,
+      "sha256": "fc2447fe9c2a51f766fb7f54fb232f93364a859dc305a49a6490781b3fb7d4c5"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-mdpi/ic_launcher.png",
+      "bytes": 5760,
+      "sha256": "fc2447fe9c2a51f766fb7f54fb232f93364a859dc305a49a6490781b3fb7d4c5"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png",
+      "bytes": 48203,
+      "sha256": "5c1d27ed62af2cf565fc602af7728104edec75fdf27477ef17ad9bba0553d9c0"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png",
+      "bytes": 18225,
+      "sha256": "e492d24696d0497fde74a14e785348366c312414685be4d861c0e4b0818496e7"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png",
+      "bytes": 18225,
+      "sha256": "e492d24696d0497fde74a14e785348366c312414685be4d861c0e4b0818496e7"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png",
+      "bytes": 99713,
+      "sha256": "83f2fa743060d604cb65f8a73add86d1a25bc67682547923e253afb89458f824"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png",
+      "bytes": 36035,
+      "sha256": "95ef258e9b6a29fd574b5efef4dbcd7abaf1e11222a6acd8ecb52f615fcce4fe"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png",
+      "bytes": 36035,
+      "sha256": "95ef258e9b6a29fd574b5efef4dbcd7abaf1e11222a6acd8ecb52f615fcce4fe"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png",
+      "bytes": 168949,
+      "sha256": "0a3408ce77b5d40cec1d6cadbee7e7cf47839dc04681938fb861f9251fc8b48d"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png",
+      "bytes": 59387,
+      "sha256": "776d1209fff215266f960b0ae085eb694b7eca8fff2706c7d22d71a151875e95"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png",
+      "bytes": 59387,
+      "sha256": "776d1209fff215266f960b0ae085eb694b7eca8fff2706c7d22d71a151875e95"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/raw/modern_flux_store_order.wav",
+      "bytes": 330284,
+      "sha256": "7d29565cc5f46decfdeabdac8a0e60ec77d3b71442f37e0a6267746421f3fca6"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/values-night/styles.xml",
+      "bytes": 995,
+      "sha256": "8c5bad5152f217e837519f9c15211d19f39bd45f5f67faf6dd81cb4b299e518f"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/values/colors.xml",
+      "bytes": 126,
+      "sha256": "d9601bbb212ccd424df0b3aa117aefae8ded2c1a113801ad527560753f8a1639"
+    },
+    {
+      "path": "sala_store/android/app/src/main/res/values/styles.xml",
+      "bytes": 996,
+      "sha256": "937d7c82f539c72eb94fd3a3773f29b3d3fef1997213c92cb632298cedf4bda9"
+    },
+    {
+      "path": "sala_store/android/app/src/prod/google-services.json",
+      "bytes": 770,
+      "sha256": "49381ca537d060db043705c674f9062647a590c493847552e79ff8b02cc9c484",
+      "handoffOnly": true
+    },
+    {
+      "path": "sala_store/android/app/src/profile/AndroidManifest.xml",
+      "bytes": 378,
+      "sha256": "30b0832ed8b92dfbd6ae2abfa939ccf26333d37600056b1572bd4a397a18a74b"
+    },
+    {
+      "path": "sala_store/android/build.gradle.kts",
+      "bytes": 537,
+      "sha256": "6a26dba2cb8dfba1e74f540b0d17a89d96c1301d3c3bfda14348bed257fddcba"
+    },
+    {
+      "path": "sala_store/android/gradle.properties",
+      "bytes": 346,
+      "sha256": "5d2dd657ff5ed508370850023732b8b57458cbef508a443c6624e01960d59191"
+    },
+    {
+      "path": "sala_store/android/gradle/wrapper/gradle-wrapper.jar",
+      "bytes": 53636,
+      "sha256": "16caeaf66d57a0d1d2087fef6a97efa62de8da69afa5b908f40db35afc4342da"
+    },
+    {
+      "path": "sala_store/android/gradle/wrapper/gradle-wrapper.properties",
+      "bytes": 202,
+      "sha256": "3221993eac1057198d652b7437105e2953ca4850d415eb0eb2b9625874fd059e"
+    },
+    {
+      "path": "sala_store/android/gradlew",
+      "bytes": 4971,
+      "sha256": "ec56c02543666d92d9ac5ae7fcc48f88ce4de0deb8b7f9b39928ca46f68c1b2b"
+    },
+    {
+      "path": "sala_store/android/gradlew.bat",
+      "bytes": 2314,
+      "sha256": "f4f428c5626b3d90cef3bd4e7fd3ad3ea5760442db8c09d586b5bfe031dbe5e3"
+    },
+    {
+      "path": "sala_store/android/settings.gradle.kts",
+      "bytes": 840,
+      "sha256": "838ccff354f21d1767a7770d9543134726c24d3d1c0b1f09268cf5f01fb3690e"
+    },
+    {
+      "path": "sala_store/assets/images/salla_store_app_icon.png",
+      "bytes": 147602,
+      "sha256": "747997eb2f30e7f590babaa55eaff4905581315936cefc7e3c5583a6bf5cc809"
+    },
+    {
+      "path": "sala_store/ios/.gitignore",
+      "bytes": 569,
+      "sha256": "37380775aeb2499662b7aca80f4ac4c95ae827c3ba2bfa179aa3e9af4812c623"
+    },
+    {
+      "path": "sala_store/ios/Flutter/AppFrameworkInfo.plist",
+      "bytes": 720,
+      "sha256": "da12038f9b2688a8a26160fea2609fa8fcb11421448c109f09c0f573efe7698d"
+    },
+    {
+      "path": "sala_store/ios/Flutter/Debug.xcconfig",
+      "bytes": 30,
+      "sha256": "a82d7765b37116ee4821d2cd1d65942febf8032353757ffb0826eabde785b4a6"
+    },
+    {
+      "path": "sala_store/ios/Flutter/Release.xcconfig",
+      "bytes": 30,
+      "sha256": "a82d7765b37116ee4821d2cd1d65942febf8032353757ffb0826eabde785b4a6"
+    },
+    {
+      "path": "sala_store/ios/Runner.xcodeproj/project.pbxproj",
+      "bytes": 28185,
+      "sha256": "7cff5345cb492e20e01b973e56de6d2f936f5fbfe1bd3478c7db40c40bf8f9bf",
+      "handoffOnly": true,
+      "originalSha256": "c0d7d7d8ee19b041f0561f67e2fbf8dcd984955f0c565907cb9033a6218529a9"
+    },
+    {
+      "path": "sala_store/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata",
+      "bytes": 135,
+      "sha256": "7f3b00b5c3fdb45242d7b87e1e5c4e25d1fa8129a16c94295ecc4e8ea2235c5f"
+    },
+    {
+      "path": "sala_store/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist",
+      "bytes": 238,
+      "sha256": "dfa0f9bb85b95ccba9c6811adadf8cb407fb5d52088e89db83ebc308ec448542"
+    },
+    {
+      "path": "sala_store/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings",
+      "bytes": 226,
+      "sha256": "11b247bc6796892d67c9a821d18604db4dd6a880981b34f38460b9866e6b247f"
+    },
+    {
+      "path": "sala_store/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme",
+      "bytes": 4717,
+      "sha256": "9fbce429f56243561dd437a527136c9f9ed77165e3b271b923faf236cfcd0484"
+    },
+    {
+      "path": "sala_store/ios/Runner.xcworkspace/contents.xcworkspacedata",
+      "bytes": 152,
+      "sha256": "46c3c9702ff7c5584e11c954d943cfb6e07fb26e3fbd072ddbc0f388aa352de1"
+    },
+    {
+      "path": "sala_store/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist",
+      "bytes": 238,
+      "sha256": "dfa0f9bb85b95ccba9c6811adadf8cb407fb5d52088e89db83ebc308ec448542"
+    },
+    {
+      "path": "sala_store/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings",
+      "bytes": 226,
+      "sha256": "11b247bc6796892d67c9a821d18604db4dd6a880981b34f38460b9866e6b247f"
+    },
+    {
+      "path": "sala_store/ios/Runner/AppDelegate.swift",
+      "bytes": 539,
+      "sha256": "451c6d9ba0a2b3ff43092ea349c60fa79a91f1158b915eb29dbdd357cb95d7b8"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json",
+      "bytes": 2519,
+      "sha256": "3b1e214f466ffedff74baa5598ad5c4421130eea6bc8d57b8fe23435e8280ae4"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
+      "bytes": 1334795,
+      "sha256": "c62d2e4423e96bd652ae938478dac04b7ddc6f108e54b58efd46a5aaea4b0913"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png",
+      "bytes": 1272,
+      "sha256": "b934df36e59edbe97699491e8ff743a33b1d93a48bfb48088e2d100d0b2bbbc5"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png",
+      "bytes": 3959,
+      "sha256": "bb05a8255cc8a3b3103bbe3fad79eeaf0fd6d682146aed3ba8f4cfaa8c4d7305"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png",
+      "bytes": 7793,
+      "sha256": "48cbfd264d85ce96b300e5c8fc24369329b8a19c7c2980dd647e2cc9b48d33b7"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png",
+      "bytes": 2344,
+      "sha256": "84e23709ba2009a67e6c2f6d6855ef6e37420ee60ca783e8fea45e239078704d"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png",
+      "bytes": 7354,
+      "sha256": "073866d7180accc88f692f2672a86523689aec5df009c99a52ef5edba57baaf3"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png",
+      "bytes": 14651,
+      "sha256": "9985c1891b863af8520328d529424c48c53a2670d967d7ec05cc9805eaa37791"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png",
+      "bytes": 3959,
+      "sha256": "bb05a8255cc8a3b3103bbe3fad79eeaf0fd6d682146aed3ba8f4cfaa8c4d7305"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png",
+      "bytes": 12592,
+      "sha256": "c6a1bbcadf104e980ed59830bbd21f08a7ed1f1ac2019db11c0699188c2e8f32"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png",
+      "bytes": 25221,
+      "sha256": "14a14bfe716cb370f456c292992e4dc46cc4d8592ed29ecd7707c82b526c2c5b"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png",
+      "bytes": 25221,
+      "sha256": "14a14bfe716cb370f456c292992e4dc46cc4d8592ed29ecd7707c82b526c2c5b"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png",
+      "bytes": 50783,
+      "sha256": "5a551af34810ec82475dbc3538c20f74b3cfb3d3e5c83fe3b619e87859d70d25"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png",
+      "bytes": 11604,
+      "sha256": "4642025a7207b0dee1c26aefc9dadbd1108c92dbadccfd6ea7d936dc3def693e"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png",
+      "bytes": 37623,
+      "sha256": "9cb2bf8060161986d34e8c92d222cf35c031b13575473774fb61e677335ebf89"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png",
+      "bytes": 44429,
+      "sha256": "69b87133c20bdc4349aa95c6c28b967a49796a36335fe20588d00fd046cfdab3"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json",
+      "bytes": 391,
+      "sha256": "ccc7950fd5f5b82067c85f667940a9d59189151460761ece8098ca78daa19469"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png",
+      "bytes": 68,
+      "sha256": "93ae7d494fad0fb30cbf3ae746a39c4bc7a0f8bbf87fbb587a3f3c01f3c5ce20"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png",
+      "bytes": 68,
+      "sha256": "93ae7d494fad0fb30cbf3ae746a39c4bc7a0f8bbf87fbb587a3f3c01f3c5ce20"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png",
+      "bytes": 68,
+      "sha256": "93ae7d494fad0fb30cbf3ae746a39c4bc7a0f8bbf87fbb587a3f3c01f3c5ce20"
+    },
+    {
+      "path": "sala_store/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md",
+      "bytes": 336,
+      "sha256": "a985b626c4f7546a8ba392d135e9226c3547c8e2b46895f5f2bdf40d7b14ef9f"
+    },
+    {
+      "path": "sala_store/ios/Runner/Base.lproj/LaunchScreen.storyboard",
+      "bytes": 2377,
+      "sha256": "857e61203b3deafb05766d8fcda898b86a7cb6f3d5e385ecc9926c4d698215e9"
+    },
+    {
+      "path": "sala_store/ios/Runner/Base.lproj/Main.storyboard",
+      "bytes": 1605,
+      "sha256": "fd367b6c43006d61b730f674970dd48b9f662c8f2264e52ffc1558102a2c9f2d"
+    },
+    {
+      "path": "sala_store/ios/Runner/Firebase/dev/GoogleService-Info.plist",
+      "bytes": 980,
+      "sha256": "82d021afc68205bb5e1779a4753c2b20695329293cc1a9888a618104e0b38ed2",
+      "handoffOnly": false
+    },
+    {
+      "path": "sala_store/ios/Runner/Firebase/prod/GoogleService-Info.plist",
+      "bytes": 993,
+      "sha256": "9be8fb11f774df3f4d842017ef1124e65de96952feefa5c419067a2d68cae45d",
+      "handoffOnly": false
+    },
+    {
+      "path": "sala_store/ios/Runner/Firebase/README_AR.md",
+      "bytes": 633,
+      "sha256": "6b5f1c08bbf5ab66eb80fb789d4a9319e453fa40f8d27e6c51f97cc19c169d84"
+    },
+    {
+      "path": "sala_store/ios/Runner/Info.plist",
+      "bytes": 2451,
+      "sha256": "23648f9c578eb24992fae9fab494ab6cf2247eec163fd23ebf1085a7baf81a44"
+    },
+    {
+      "path": "sala_store/ios/Runner/PrivacyInfo.xcprivacy",
+      "bytes": 4020,
+      "sha256": "6f50888808dcf4a1f0ac5badb6fb2c6aeb38969a55a94f2be5466a60020eb2db"
+    },
+    {
+      "path": "sala_store/ios/Runner/Runner-Bridging-Header.h",
+      "bytes": 38,
+      "sha256": "1a8d11d01d1cc92c650c9c9ed35299240052d4683a15a719a2315ef44185e074"
+    },
+    {
+      "path": "sala_store/ios/Runner/Runner.entitlements",
+      "bytes": 259,
+      "sha256": "540fcb915fd3738c38ffa8586911f220d31061297f9a49c1a9230b73fcd7c32d"
+    },
+    {
+      "path": "sala_store/ios/Runner/SceneDelegate.swift",
+      "bytes": 76,
+      "sha256": "add68b905971dedfcc0d0b5b7118030de5925ba8c081ad9815463699e3a444ad"
+    },
+    {
+      "path": "sala_store/ios/RunnerTests/RunnerTests.swift",
+      "bytes": 285,
+      "sha256": "5e8f4908dacea6f29b2a790e4d38bf5fded69096063f9a27a2f21584d62b30c0"
+    },
+    {
+      "path": "sala_store/lib/firebase_options.dart",
+      "bytes": 743,
+      "sha256": "2917f7868d14e7f840f47303d429fcaba57090998e82302109a956cec439c763",
+      "handoffOnly": true
+    },
+    {
+      "path": "sala_store/lib/main.dart",
+      "bytes": 19019,
+      "sha256": "82b6410383fd7c2a6158b96c807afad18c7b748b22dc9de48494637135adf1d1"
+    },
+    {
+      "path": "sala_store/lib/src/data/models.dart",
+      "bytes": 35916,
+      "sha256": "b59a0c33714bf2e58d97d5c94ca83be879d4d299fcb8f01129dd262f4b6545f4"
+    },
+    {
+      "path": "sala_store/lib/src/data/store_numeric_input.dart",
+      "bytes": 2804,
+      "sha256": "8a97d1c58c1d7cd14406d88cb2fcee168a49d824fdf37a2fef340bc37484a2e9"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_external_delivery.dart",
+      "bytes": 98028,
+      "sha256": "635138355328b00b457dd5495d9276bb698445a7636b7e57d8379f1e17091a26"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_home_page.dart",
+      "bytes": 287928,
+      "sha256": "83eead4f3fb8c87bd3eea6102ebfbf0030366e009cb306fc8b6021e51f0a20e1"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_order_report.dart",
+      "bytes": 31332,
+      "sha256": "07fdb5cde555e82a5120d2d7c4fd6af7d1a01dbfeee9d2524e293171ae3c0cab"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_privacy_request.dart",
+      "bytes": 6899,
+      "sha256": "9801fa63ae2f27e84387a9f1ae67d4db7ca8d7b326a96b8c664be24e57d4f2f9"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_public_links.dart",
+      "bytes": 4123,
+      "sha256": "582b2d8a7aa3db0cd0efbdb33e6ad8694deca05856934de702429969704dd3f7"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_report_protection_settings.dart",
+      "bytes": 11088,
+      "sha256": "0effe353925ae4f54acf67df09b7ad5d06094a9f44de613f728270148ecf3686"
+    },
+    {
+      "path": "sala_store/pubspec.lock",
+      "bytes": 28000,
+      "sha256": "4c8db11ca7bf7ad7f8ba6aefcc516ca4ab40099ca8145d902f710e80f7fca554"
+    },
+    {
+      "path": "sala_store/pubspec.yaml",
+      "bytes": 4203,
+      "sha256": "f2a0d598d19179d91415af7d695d6edf894c40d1207eba1580095031afe8bdeb"
+    },
+    {
+      "path": "sala_store/test/osm_map_hygiene_contract_test.dart",
+      "bytes": 1298,
+      "sha256": "250fd67cfaeabd497a9b7bcc33d3728bfa371a1c75413179714f496f74bcc05f"
+    },
+    {
+      "path": "sala_store/test/realtime_listener_recovery_test.dart",
+      "bytes": 11592,
+      "sha256": "b87e0a0f4c469ed64302a5ec9e1f60e1ad3b93207a94089c9c6c9cefd3470bf5"
+    },
+    {
+      "path": "sala_store/test/store_amount_input_test.dart",
+      "bytes": 3141,
+      "sha256": "7f40319c86b138bca7cc991636cddb4fbc112e45323f051486ce1578d1250734"
+    },
+    {
+      "path": "sala_store/test/store_branding_startup_test.dart",
+      "bytes": 7466,
+      "sha256": "a360388b11d65d9957aeea0fb51e140267a781353361cf3447962e2a6b6abbc8"
+    },
+    {
+      "path": "sala_store/test/store_external_delivery_area_picker_test.dart",
+      "bytes": 13046,
+      "sha256": "75fd8d3ff846ccd37603eb44a295942d47003e471dd011306493f340d6f5b351"
+    },
+    {
+      "path": "sala_store/test/store_external_delivery_cancellation_dialog_test.dart",
+      "bytes": 2873,
+      "sha256": "0297410d49d6e197bbdf4571ea225e141d49cdd02f14b872d2ed8755eab96461"
+    },
+    {
+      "path": "sala_store/test/store_external_delivery_contract_test.dart",
+      "bytes": 24218,
+      "sha256": "500713e0e3953a1222957372ae3588bed9091dc55f47388441331a1fcce9af36"
+    },
+    {
+      "path": "sala_store/test/store_external_delivery_simple_form_test.dart",
+      "bytes": 33773,
+      "sha256": "bcaff9483dbe7bf88276ee9989a895f7d172ea92798a7f6bc2dbb34f28cc4247"
+    },
+    {
+      "path": "sala_store/test/store_lazy_page_performance_test.dart",
+      "bytes": 3096,
+      "sha256": "3bb809f8f1e7843eb3377915ac77b31bbe717f5ca127696819bc1b0b544a3cfe"
+    },
+    {
+      "path": "sala_store/test/store_menu_product_contract_test.dart",
+      "bytes": 4881,
+      "sha256": "db4c9ebb5127a6730b3f8f3718a1bbe52553e2fceb260bcc11a6f3516bb3f90c"
+    },
+    {
+      "path": "sala_store/test/store_mutation_busy_guard_test.dart",
+      "bytes": 3515,
+      "sha256": "489b31efbc2cc5112f0d2719c289609815141a98c020bbb1a75a6063e1cb88b9"
+    },
+    {
+      "path": "sala_store/test/store_notification_contract_test.dart",
+      "bytes": 2131,
+      "sha256": "153014ac8c6f0f2f483d7125d2dd584d4eaf6ffa624dde9a4893f16e18b1db17"
+    },
+    {
+      "path": "sala_store/test/store_order_report_test.dart",
+      "bytes": 10276,
+      "sha256": "c8e6526c607a9336ac2478e20049ee8c275636f692a7bf21a12c2436fabba963"
+    },
+    {
+      "path": "sala_store/test/store_privacy_request_test.dart",
+      "bytes": 3794,
+      "sha256": "933765189594017282423fdfdf5588ff9f7171267e5f371ec92c7ad19432da61"
+    },
+    {
+      "path": "sala_store/test/store_public_links_test.dart",
+      "bytes": 3896,
+      "sha256": "bfa4f006078976b339f3d27d270429927618ac00d74f8747c4b8ebcc8664f064"
+    },
+    {
+      "path": "sala_store/test/store_report_access_test.dart",
+      "bytes": 6969,
+      "sha256": "2347febe218dc317bb5518e5528008853672d89debba49b93623098d92822550"
+    },
+    {
+      "path": "sala_store/test/store_report_protection_settings_test.dart",
+      "bytes": 7225,
+      "sha256": "73c0ac75f52ab7e557ce1ae005042cc2e1c37c54b09c27b3852bb64e9323934e"
+    },
+    {
+      "path": "sala_store/test/store_subscription_contract_test.dart",
+      "bytes": 3416,
+      "sha256": "3f2d8ec0a17ccc67cfa87edfcdc3c355074e4590a3753491e870563eb0655160"
+    },
+    {
+      "path": "sala_store/test/widget_test.dart",
+      "bytes": 25749,
+      "sha256": "30bb4d822373d0fc03388621e2ac070ed1e115c1337844260fd55e6ef1d1855b"
+    },
+    {
+      "path": "signing-templates/store.properties.example",
+      "bytes": 407,
+      "sha256": "18c7d5583c9f5549aaa71cd509fbbed26c80caba09af06a979143719e98cec0f",
+      "handoffOnly": true
+    },
+    {
+      "path": "STORE_PUBLISHER_CHECKLIST_AR.md",
+      "bytes": 15178,
+      "sha256": "a1d0ca877ba484d75b1355dd2369e234d96c7d7b28b3d30b13f1cf93d796f3b3",
+      "handoffOnly": true
+    }
+  ]
+}

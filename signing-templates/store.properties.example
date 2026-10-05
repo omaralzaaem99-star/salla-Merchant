@@ -1,0 +1,8 @@
+# Placeholder only. The owner configures this OUTSIDE the source tree at:
+# ~/.selafood/signing/store.properties
+# Use the existing approved signing identity; never generate a replacement blindly.
+# Forward slashes work on Windows, too. No quotes around property values.
+storeFile=/ABSOLUTE/PATH/TO/OWNER_CONTROLLED_KEY.jks
+storePassword=REPLACE_LOCALLY
+keyAlias=REPLACE_LOCALLY
+keyPassword=REPLACE_LOCALLY

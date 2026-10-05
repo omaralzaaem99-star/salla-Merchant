@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "663463991048",
+    "firebase_url": "https://salla-dev-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "salla-dev",
+    "storage_bucket": "salla-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663463991048:android:72264104512ded3a7efebd",
+        "android_client_info": {
+          "package_name": "com.selafood.store.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4q0fMIwh2y4cG9rvMRXHuK8qHmItdxTk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
