@@ -12,7 +12,7 @@
     environment:
       ios_signing:
         provisioning_profiles:
-          - profile: SallaPushProduction
+          - profile: SallaPushProduction2
             environment_variable: SALLA_PROFILE_PATH
         certificates:
           - SallaDistribution
@@ -123,3 +123,4 @@
         auth: integration
         submit_to_testflight: true
         submit_to_app_store: false
+
