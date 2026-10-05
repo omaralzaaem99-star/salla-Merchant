@@ -30,7 +30,9 @@
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>نحتاج إلى موقع المتجر لتثبيت نقطة الاستلام ومراجعة مسافة التوصيل بدقة.</string>
-	<key>UIApplicationSceneManifest</key>
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>We use your location to set your store pickup location and calculate delivery distance accurately.</string>
+<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<false/>
