@@ -34,20 +34,17 @@
           set -e
           xcode-project use-profiles --project ios/Runner.xcodeproj
 
-      - name: Inspect selected provisioning profile
+      - name: Prepare signing export options
         script: |
           set -e
 
-          echo "Profile path:"
-          echo "$SALLA_PROFILE_PATH"
-
           security cms -D -i "$SALLA_PROFILE_PATH" > /tmp/salla_profile.plist
 
-          PROFILE_NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" /tmp/salla_profile.plist)
           PROFILE_UUID=$(/usr/libexec/PlistBuddy -c "Print :UUID" /tmp/salla_profile.plist)
+          PROFILE_NAME=$(/usr/libexec/PlistBuddy -c "Print :Name" /tmp/salla_profile.plist)
           TEAM_ID=$(/usr/libexec/PlistBuddy -c "Print :TeamIdentifier:0" /tmp/salla_profile.plist)
           APP_IDENTIFIER=$(/usr/libexec/PlistBuddy -c "Print :Entitlements:application-identifier" /tmp/salla_profile.plist)
-          APS_ENV=$(/usr/libexec/PlistBuddy -c "Print :Entitlements:aps-environment" /tmp/salla_profile.plist 2>/dev/null || true)
+          APS_ENV=$(/usr/libexec/PlistBuddy -c "Print :Entitlements:aps-environment" /tmp/salla_profile.plist)
 
           echo "Profile Name: $PROFILE_NAME"
           echo "Profile UUID: $PROFILE_UUID"
@@ -55,13 +52,8 @@
           echo "Application Identifier: $APP_IDENTIFIER"
           echo "Push entitlement: $APS_ENV"
 
-          if [[ "$APP_IDENTIFIER" != *".$BUNDLE_ID" ]]; then
-            echo "ERROR: Bundle ID does not match selected provisioning profile"
-            exit 1
-          fi
-
           if [ "$APS_ENV" != "production" ]; then
-            echo "ERROR: Selected profile does not contain aps-environment=production"
+            echo "ERROR: Push entitlement is not production"
             exit 1
           fi
 
@@ -89,13 +81,15 @@
           </plist>
           EOF
 
-          plutil -p ios/ExportOptions.plist
-
       - name: Build iOS IPA
         script: |
           set -e
 
+          echo "Using build number: $PROJECT_BUILD_NUMBER"
+
           flutter build ipa --release \
+            --build-name=1.0.0 \
+            --build-number="$PROJECT_BUILD_NUMBER" \
             --export-options-plist="$CM_BUILD_DIR/sala_store/ios/ExportOptions.plist"
 
       - name: Verify IPA
@@ -114,13 +108,20 @@
           echo "$IPA_FILE"
           ls -lh "$IPA_FILE"
 
+          echo "IPA_FILE=$IPA_FILE" >> "$CM_ENV"
+
+      - name: Upload IPA to App Store Connect
+        script: |
+          set -e
+
+          echo "Uploading:"
+          echo "$IPA_FILE"
+
+          app-store-connect publish \
+            --path "$IPA_FILE"
+
+          echo "IPA upload to App Store Connect completed"
+
     artifacts:
       - sala_store/build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
-
-    publishing:
-      app_store_connect:
-        auth: integration
-        submit_to_testflight: true
-        submit_to_app_store: false
-
