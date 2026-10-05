@@ -8,12 +8,9 @@
       app_store_connect: "SIQ Codemagic"
 
     environment:
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.salllla.marchent
-
       vars:
-        APP_STORE_APPLE_ID: 6819366483
+        BUNDLE_ID: "com.salllla.marchent"
+        APP_STORE_APPLE_ID: "6819366483"
 
       flutter: stable
       xcode: latest
@@ -24,7 +21,21 @@
           cd "$CM_BUILD_DIR/sala_store"
           flutter pub get
 
-      - name: Set up iOS code signing
+      - name: Initialize iOS keychain
+        script: |
+          keychain initialize
+
+      - name: Fetch or create fresh Apple signing files
+        script: |
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --create
+
+      - name: Add signing certificate to keychain
+        script: |
+          keychain add-certificates
+
+      - name: Apply provisioning profile
         script: |
           cd "$CM_BUILD_DIR/sala_store"
           xcode-project use-profiles
@@ -32,7 +43,13 @@
       - name: Build iOS IPA
         script: |
           cd "$CM_BUILD_DIR/sala_store"
-          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
+
+          LATEST_BUILD_NUMBER="$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID" 2>/dev/null || true)"
+
+          if ! [[ "$LATEST_BUILD_NUMBER" =~ ^[0-9]+$ ]]; then
+            LATEST_BUILD_NUMBER=0
+          fi
+
           BUILD_NUMBER=$((LATEST_BUILD_NUMBER + 1))
 
           echo "Latest App Store build: $LATEST_BUILD_NUMBER"
