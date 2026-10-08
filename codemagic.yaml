@@ -88,8 +88,8 @@
           echo "Using build number: $PROJECT_BUILD_NUMBER"
 
           flutter build ipa --release \
-            --build-name=1.0.0 \
-            --build-number=23 \
+            --build-name=1.0.1 \
+            --build-number=24 \
             --export-options-plist="$CM_BUILD_DIR/sala_store/ios/ExportOptions.plist"
 
       - name: Verify IPA
@@ -125,4 +125,5 @@
     artifacts:
       - sala_store/build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
+
 
