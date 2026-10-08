@@ -512,6 +512,25 @@ class StoreStartupErrorApp extends StatelessWidget {
 class StoreApp extends StatelessWidget {
   const StoreApp({super.key});
 
+  Future<void> _requestMerchantAccount(BuildContext context) async {
+    final uri = Uri.https('wa.me', '/9647775655367');
+    try {
+      final opened = await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      );
+      if (opened) return;
+    } catch (_) {
+      // Show the contact number if WhatsApp or the browser cannot be opened.
+    }
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('تعذر فتح واتساب. تواصل مع الإدارة على 07775655367'),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -540,7 +559,29 @@ class StoreApp extends StatelessWidget {
         expectedRole: SallaUserRole.store,
         loginMode: SallaLoginMode.phone,
         allowRegistration: true,
-        loginFooter: const StorePublicLinks(compact: true),
+        loginFooter: Builder(
+          builder: (context) => Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              OutlinedButton.icon(
+                onPressed: () => _requestMerchantAccount(context),
+                icon: const Icon(Icons.chat_outlined),
+                label: const Text(
+                  'طلب حساب تاجر',
+                  style: TextStyle(fontWeight: FontWeight.w900),
+                ),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: appColor,
+                  side: const BorderSide(color: appColor),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+              ),
+              const SizedBox(height: 8),
+              const StorePublicLinks(compact: true),
+            ],
+          ),
+        ),
         authenticatedBuilder: (context, identity) {
           sallaIdentity = identity;
           return const Directionality(
