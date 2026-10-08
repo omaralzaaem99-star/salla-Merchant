@@ -1,0 +1,179 @@
+name: Salla Merchant iOS IPA
+
+on:
+  workflow_dispatch:
+    inputs:
+      signed:
+        description: 'Build signed App Store IPA (requires Apple signing secrets)'
+        type: boolean
+        default: true
+  push:
+    branches: [main]
+    paths: ['.github/workflows/ios-ipa.yml']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: salla-ios-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: macos-26
+    timeout-minutes: 90
+    defaults:
+      run:
+        shell: bash
+        working-directory: sala_store
+    env:
+      BUNDLE_ID: com.salllla.marchent
+      SIGNED: ${{ github.event_name == 'workflow_dispatch' && inputs.signed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Flutter (same stable channel as Codemagic)
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Check immutable application settings and signing inputs
+        env:
+          CERTIFICATE: ${{ secrets.IOS_DISTRIBUTION_P12_BASE64 }}
+          CERTIFICATE_PASSWORD: ${{ secrets.IOS_DISTRIBUTION_P12_PASSWORD }}
+          PROFILE: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+          TEAM: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import pathlib, re, os
+          assert re.search(r'^version:\s*1\.0\.1\+24\s*$', pathlib.Path('pubspec.yaml').read_text(encoding='utf-8-sig'), re.M), 'Expected version 1.0.1+24'
+          assert 'PRODUCT_BUNDLE_IDENTIFIER = com.salllla.marchent;' in pathlib.Path('ios/Runner.xcodeproj/project.pbxproj').read_text()
+          if os.environ['SIGNED'] == 'true':
+              missing = [k for k in ['CERTIFICATE', 'CERTIFICATE_PASSWORD', 'PROFILE', 'TEAM'] if not os.environ.get(k)]
+              if missing:
+                  raise SystemExit('Missing signing secrets. Required: IOS_DISTRIBUTION_P12_BASE64, IOS_DISTRIBUTION_P12_PASSWORD, IOS_PROVISIONING_PROFILE_BASE64, APPLE_TEAM_ID')
+          PY
+      - name: Prepare Xcode and Flutter dependencies
+        run: |
+          set -euo pipefail
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+          flutter --version
+          flutter config --enable-swift-package-manager
+          flutter precache --ios
+          flutter pub get
+          # Flutter manages Swift packages and generates CocoaPods fallback when needed.
+          if ! command -v pod >/dev/null; then
+            brew install cocoapods
+          fi
+          pod --version
+      - name: Check release build without signing
+        run: flutter build ios --release --no-codesign --build-name=1.0.1 --build-number=24
+      - name: Install signing assets in a temporary keychain
+        if: env.SIGNED == 'true'
+        env:
+          P12_BASE64: ${{ secrets.IOS_DISTRIBUTION_P12_BASE64 }}
+          P12_PASSWORD: ${{ secrets.IOS_DISTRIBUTION_P12_PASSWORD }}
+          PROFILE_BASE64: ${{ secrets.IOS_PROVISIONING_PROFILE_BASE64 }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          set -euo pipefail
+          umask 077
+          KEYCHAIN="$RUNNER_TEMP/salla-signing.keychain-db"
+          KEYCHAIN_PASSWORD=$(openssl rand -hex 32)
+          echo "::add-mask::$KEYCHAIN_PASSWORD"
+          export KEYCHAIN
+          python3 - <<'PY'
+          import base64, os, pathlib
+          for env, filename in [('P12_BASE64', 'distribution.p12'), ('PROFILE_BASE64', 'salla.mobileprovision')]:
+              pathlib.Path(os.environ['RUNNER_TEMP'], filename).write_bytes(base64.b64decode(os.environ[env], validate=True))
+          PY
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN"
+          security import "$RUNNER_TEMP/distribution.p12" -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k "$KEYCHAIN"
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN" >/dev/null
+          security list-keychains -d user -s "$KEYCHAIN" "$HOME/Library/Keychains/login.keychain-db"
+          security cms -D -i "$RUNNER_TEMP/salla.mobileprovision" > "$RUNNER_TEMP/profile.plist"
+          python3 - <<'PY'
+          import datetime, os, pathlib, plistlib, shutil
+          temp = pathlib.Path(os.environ['RUNNER_TEMP'])
+          profile = plistlib.loads((temp/'profile.plist').read_bytes())
+          team, bundle = os.environ['APPLE_TEAM_ID'], os.environ['BUNDLE_ID']
+          assert team in profile['TeamIdentifier'], 'Profile team mismatch'
+          assert profile['Entitlements']['application-identifier'] == team + '.' + bundle, 'Profile Bundle ID mismatch'
+          assert profile['Entitlements'].get('aps-environment') == 'production', 'Production push entitlement required'
+          assert profile['ExpirationDate'] > datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None), 'Profile expired'
+          assert not profile.get('ProvisionedDevices') and not profile.get('ProvisionsAllDevices'), 'App Store distribution profile required'
+          directory = pathlib.Path.home()/'Library/MobileDevice/Provisioning Profiles'
+          directory.mkdir(parents=True, exist_ok=True)
+          installed = directory/(profile['UUID']+'.mobileprovision')
+          shutil.copyfile(temp/'salla.mobileprovision', installed)
+          options = dict(method='app-store-connect', teamID=team, signingStyle='manual', signingCertificate='Apple Distribution', provisioningProfiles={bundle:profile['UUID']}, destination='export', manageAppVersionAndBuildNumber=False)
+          (temp/'ExportOptions.plist').write_bytes(plistlib.dumps(options))
+          with open(os.environ['GITHUB_ENV'], 'a') as f:
+              f.write('PROFILE_UUID='+profile['UUID']+'\nINSTALLED_PROFILE='+str(installed)+'\nAPPLE_TEAM_ID='+team+'\n')
+          PY
+      - name: Apply signing only to the temporary Runner project
+        if: env.SIGNED == 'true'
+        run: |
+          set -euo pipefail
+          # No repository files are committed or pushed from the runner.
+          gem install xcodeproj --no-document --user-install
+          ruby - <<'RUBY'
+          require 'xcodeproj'
+          project = Xcodeproj::Project.open('ios/Runner.xcodeproj')
+          target = project.targets.find { |t| t.name == 'Runner' }
+          abort 'Runner target missing' unless target
+          target.build_configurations.each do |config|
+            next unless ['Release', 'Profile'].include?(config.name)
+            settings = config.build_settings
+            settings['CODE_SIGN_STYLE'] = 'Manual'
+            settings['DEVELOPMENT_TEAM'] = ENV.fetch('APPLE_TEAM_ID')
+            settings['CODE_SIGN_IDENTITY'] = 'Apple Distribution'
+            settings['CODE_SIGN_IDENTITY[sdk=iphoneos*]'] = 'Apple Distribution'
+            settings['PROVISIONING_PROFILE_SPECIFIER'] = ENV.fetch('PROFILE_UUID')
+            settings['SALLA_APS_ENVIRONMENT'] = 'production'
+          end
+          project.save
+          RUBY
+      - name: Build signed release IPA
+        if: env.SIGNED == 'true'
+        run: |
+          set -euo pipefail
+          flutter build ipa --release --build-name=1.0.1 --build-number=24 --export-options-plist="$RUNNER_TEMP/ExportOptions.plist"
+          python3 - <<'PY'
+          import glob, plistlib, zipfile
+          files = glob.glob('build/ios/ipa/*.ipa')
+          assert files, 'No IPA generated'
+          for path in files:
+              with zipfile.ZipFile(path) as ipa:
+                  info = next(n for n in ipa.namelist() if n.startswith('Payload/') and n.count('/') == 2 and n.endswith('.app/Info.plist'))
+                  values = plistlib.loads(ipa.read(info))
+                  assert values['CFBundleIdentifier'] == 'com.salllla.marchent'
+                  assert values['CFBundleShortVersionString'] == '1.0.1'
+                  assert values['CFBundleVersion'] == '24'
+          PY
+      - name: Upload release IPA
+        if: env.SIGNED == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Salla-Merchant-1.0.1-24-IPA
+          path: sala_store/build/ios/ipa/*.ipa
+          if-no-files-found: error
+          retention-days: 14
+      - name: Build summary
+        run: |
+          if [ "$SIGNED" = true ]; then
+            echo 'Signed IPA is available in this run’s artifacts. Nothing was uploaded to App Store Connect.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Unsigned release iOS build passed. No installable IPA was generated. Add the four Apple signing secrets and run manually with signed enabled.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Remove temporary signing assets
+        if: always()
+        run: |
+          security delete-keychain "$RUNNER_TEMP/salla-signing.keychain-db" 2>/dev/null || true
+          if [ -n "${INSTALLED_PROFILE:-}" ]; then rm -f "$INSTALLED_PROFILE"; fi
+          rm -f "$RUNNER_TEMP/distribution.p12" "$RUNNER_TEMP/salla.mobileprovision" "$RUNNER_TEMP/profile.plist" "$RUNNER_TEMP/ExportOptions.plist"
