@@ -21,7 +21,7 @@
         BUNDLE_ID: "com.salllla.marchent"
 
       flutter: stable
-      xcode: latest
+      xcode: 26.3
 
     scripts:
       - name: Get Flutter packages
