@@ -9,6 +9,7 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'src/session_read_recovery.dart';
 
 export 'src/app_check_monitoring.dart';
 
@@ -2152,6 +2153,9 @@ class SallaAuthGate extends StatefulWidget {
   final Widget? loginFooter;
   final bool allowFirstAdminBootstrap;
   final bool allowDriverOperationalBlock;
+
+  /// Opt-in recovery for the Admin host; other shipped apps keep their flow.
+  final bool recoverLocalSessionRead;
   final Color primaryColor;
   final bool? customerWhatsappOtpEnabled;
   final SallaWhatsappOtpSource customerWhatsappOtpSource;
@@ -2167,6 +2171,7 @@ class SallaAuthGate extends StatefulWidget {
     this.loginFooter,
     this.allowFirstAdminBootstrap = false,
     this.allowDriverOperationalBlock = false,
+    this.recoverLocalSessionRead = false,
     this.primaryColor = const Color(0xFF0F766E),
     this.customerWhatsappOtpEnabled,
     this.customerWhatsappOtpSource = SallaWhatsappOtpSource.customerLogin,
@@ -2207,6 +2212,8 @@ class _SallaAuthGateState extends State<SallaAuthGate> {
   bool localSessionLoaded = false;
   SallaIdentity? localIdentity;
   Object? localSessionError;
+  StreamSubscription<SallaIdentity?>? _localSessionRead;
+  int _localSessionReadRevision = 0;
   SallaSavedLogin? savedLogin;
   bool savedLoginLoaded = false;
   int refreshRevision = 0;
@@ -2221,6 +2228,8 @@ class _SallaAuthGateState extends State<SallaAuthGate> {
 
   @override
   void dispose() {
+    _localSessionReadRevision++;
+    unawaited(_localSessionRead?.cancel());
     SallaAuthService.sessionRevision
         .removeListener(handleSessionRevisionChanged);
     emailController.dispose();
@@ -2313,6 +2322,36 @@ class _SallaAuthGateState extends State<SallaAuthGate> {
       if (mounted) setState(() => localSessionLoaded = true);
       return;
     }
+    if (widget.recoverLocalSessionRead) {
+      final revision = ++_localSessionReadRevision;
+      await _localSessionRead?.cancel();
+      if (!mounted || revision != _localSessionReadRevision) return;
+      _localSessionRead = sallaRecoveringSessionRead<SallaIdentity?>(() async {
+        final saved =
+            await SallaAuthService.loadLocalIdentity(widget.expectedRole);
+        return saved == null
+            ? null
+            : SallaAuthService.validateLocalIdentity(
+                saved,
+                allowDriverOperationalBlock: widget.allowDriverOperationalBlock,
+              );
+      }).listen((identity) {
+        if (!mounted || revision != _localSessionReadRevision) return;
+        setState(() {
+          localIdentity = identity;
+          localSessionError = null;
+          localSessionLoaded = true;
+        });
+      }, onError: (Object error) {
+        if (!mounted || revision != _localSessionReadRevision) return;
+        setState(() {
+          localIdentity = null;
+          localSessionError = error;
+          localSessionLoaded = true;
+        });
+      });
+      return;
+    }
     SallaIdentity? identity;
     Object? validationError;
     try {
@@ -2389,7 +2428,10 @@ class _SallaAuthGateState extends State<SallaAuthGate> {
         final isBlocked = sallaIsExplicitAccountBlock(sessionError);
         return accessStateScreen(
           title: isBlocked ? 'الحساب موقوف' : 'تعذر التحقق من الحساب',
-          message: friendlyError(sessionError),
+          message: widget.recoverLocalSessionRead &&
+                  sessionError is TimeoutException
+              ? 'التحقق من الحساب يستغرق وقتاً أطول. جارٍ استكماله تلقائياً؛ يمكنك الانتظار أو إعادة التحقق.'
+              : friendlyError(sessionError),
           icon: isBlocked ? Icons.lock_person_rounded : Icons.cloud_off_rounded,
           retry: true,
         );

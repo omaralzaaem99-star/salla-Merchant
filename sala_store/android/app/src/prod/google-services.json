@@ -8,6 +8,82 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:340826672928:android:4a78c674f606fa12479145",
+        "android_client_info": {
+          "package_name": "com.salasala.marchent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG1GVjunMuWXiea1tyJLxTPWO1tgvj8TE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340826672928:android:fb16489e35722f47479145",
+        "android_client_info": {
+          "package_name": "com.selafood.admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG1GVjunMuWXiea1tyJLxTPWO1tgvj8TE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340826672928:android:e187cd6f079f287a479145",
+        "android_client_info": {
+          "package_name": "com.selafood.customer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG1GVjunMuWXiea1tyJLxTPWO1tgvj8TE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340826672928:android:2d7e8792a897b3b9479145",
+        "android_client_info": {
+          "package_name": "com.selafood.driver"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG1GVjunMuWXiea1tyJLxTPWO1tgvj8TE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:340826672928:android:411b12831f5979b6479145",
         "android_client_info": {
           "package_name": "com.selafood.store"

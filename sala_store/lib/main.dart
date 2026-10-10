@@ -31,6 +31,7 @@ part 'src/pages/store_external_delivery.dart';
 part 'src/pages/store_order_report.dart';
 part 'src/pages/store_report_protection_settings.dart';
 part 'src/pages/store_public_links.dart';
+part 'src/pages/store_guest.dart';
 part 'src/pages/store_privacy_request.dart';
 
 const Duration _storeStartupTimeout = Duration(seconds: 25);
@@ -513,21 +514,8 @@ class StoreApp extends StatelessWidget {
   const StoreApp({super.key});
 
   Future<void> _requestMerchantAccount(BuildContext context) async {
-    final uri = Uri.https('wa.me', '/9647775655367');
-    try {
-      final opened = await launchUrl(
-        uri,
-        mode: LaunchMode.externalApplication,
-      );
-      if (opened) return;
-    } catch (_) {
-      // Show the contact number if WhatsApp or the browser cannot be opened.
-    }
-    if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('تعذر فتح واتساب. تواصل مع الإدارة على 07775655367'),
-      ),
+    await Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => const StoreApplicationPage()),
     );
   }
 
@@ -555,40 +543,47 @@ class StoreApp extends StatelessWidget {
           ),
         ),
       ),
-      home: SallaAuthGate(
-        expectedRole: SallaUserRole.store,
-        loginMode: SallaLoginMode.phone,
-        allowRegistration: true,
-        loginFooter: Builder(
-          builder: (context) => Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              OutlinedButton.icon(
-                onPressed: () => _requestMerchantAccount(context),
-                icon: const Icon(Icons.chat_outlined),
-                label: const Text(
-                  'طلب حساب تاجر',
-                  style: TextStyle(fontWeight: FontWeight.w900),
+      home: StoreAccessEntry(
+        authBuilder: (explore) => SallaAuthGate(
+          expectedRole: SallaUserRole.store,
+          loginMode: SallaLoginMode.phone,
+          allowRegistration: true,
+          loginFooter: Builder(
+            builder: (context) => Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextButton.icon(
+                  onPressed: explore,
+                  icon: const Icon(Icons.explore_outlined),
+                  label: const Text('استكشف التطبيق بدون حساب'),
                 ),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: appColor,
-                  side: const BorderSide(color: appColor),
-                  padding: const EdgeInsets.symmetric(vertical: 14),
+                OutlinedButton.icon(
+                  onPressed: () => _requestMerchantAccount(context),
+                  icon: const Icon(Icons.chat_outlined),
+                  label: const Text(
+                    'إنشاء حساب',
+                    style: TextStyle(fontWeight: FontWeight.w900),
+                  ),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: appColor,
+                    side: const BorderSide(color: appColor),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              const StorePublicLinks(compact: true),
-            ],
+                const SizedBox(height: 8),
+                const StorePublicLinks(compact: true),
+              ],
+            ),
           ),
+          authenticatedBuilder: (context, identity) {
+            sallaIdentity = identity;
+            return const Directionality(
+              textDirection: TextDirection.rtl,
+              child: StoreHomePage(),
+            );
+          },
         ),
-        authenticatedBuilder: (context, identity) {
-          sallaIdentity = identity;
-          return const Directionality(
-            textDirection: TextDirection.rtl,
-            child: StoreHomePage(),
-          );
-        },
       ),
     );
   }

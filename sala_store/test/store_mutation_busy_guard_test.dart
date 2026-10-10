@@ -73,12 +73,16 @@ void main() {
     );
     expect(source, contains("_busyStoreSettingKeys.contains('prep_minutes')"));
     expect(source, contains("_busyStoreSettingKeys.contains('auto_dispatch')"));
-    expect(
-      source,
-      contains(
-        "_busyStoreSettingKeys.contains(\n"
-        "                            'dispatch_lead_minutes',",
-      ),
-    );
+    final lf = source.replaceAll('\r\n', '\n');
+    for (final text in [lf, lf.replaceAll('\n', '\r\n')]) {
+      expect(
+        text,
+        matches(
+          RegExp(
+            r"_busyStoreSettingKeys\.contains\(\s*'dispatch_lead_minutes',",
+          ),
+        ),
+      );
+    }
   });
 }

@@ -117,6 +117,9 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     await tester.pumpWidget(const StoreApp());
     await tester.pumpAndSettle();
+    expect(find.text('متجر تجريبي'), findsOneWidget);
+    await tester.tap(find.text('تسجيل الدخول'));
+    await tester.pumpAndSettle();
     expect(find.text('سياسة الخصوصية'), findsOneWidget);
     expect(find.text('الدعم'), findsOneWidget);
     expect(find.text('إنشاء حساب جديد'), findsNothing);

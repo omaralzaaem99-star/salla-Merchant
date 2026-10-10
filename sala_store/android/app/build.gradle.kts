@@ -87,6 +87,7 @@ android {
         }
         create("prod") {
             dimension = "environment"
+            applicationId = "com.salasala.marchent"
             resValue("string", "app_name", "Salla Merchant")
         }
     }

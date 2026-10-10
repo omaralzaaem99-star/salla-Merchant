@@ -287,6 +287,9 @@ Widget buildSelectedStorePage({
 
 class StoreHomePage extends StatefulWidget {
   final bool enableRealtime;
+  final VoidCallback? onGuestLogin;
+  final VoidCallback? onGuestApply;
+  bool get isGuest => onGuestLogin != null;
   final int initialPageIndex;
   final List<StoreOrder> initialOrders;
   final List<StoreProduct> initialProducts;
@@ -297,7 +300,19 @@ class StoreHomePage extends StatefulWidget {
     this.initialPageIndex = 1,
     this.initialOrders = const <StoreOrder>[],
     this.initialProducts = const <StoreProduct>[],
-  });
+  }) : onGuestLogin = null,
+       onGuestApply = null;
+
+  const StoreHomePage.guest({
+    super.key,
+    required VoidCallback onLogin,
+    VoidCallback? onApply,
+  }) : onGuestLogin = onLogin,
+       onGuestApply = onApply,
+       enableRealtime = false,
+       initialPageIndex = 1,
+       initialOrders = const [],
+       initialProducts = const [];
 
   @override
   State<StoreHomePage> createState() => _StoreHomePageState();
@@ -431,7 +446,9 @@ class _StoreHomePageState extends State<StoreHomePage>
         ? _restorePendingStoreOperationalIntentSafely()
         : Future<void>.value();
     WidgetsBinding.instance.addObserver(this);
-    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
+    if (!widget.isGuest &&
+        !kIsWeb &&
+        defaultTargetPlatform == TargetPlatform.android) {
       _sharedLocationChannel.setMethodCallHandler((call) async {
         if (call.method != 'sharedLocationAvailable' || !mounted) return;
         _lastSharedLocationFailureId = '';
@@ -1878,7 +1895,9 @@ class _StoreHomePageState extends State<StoreHomePage>
     _storeHistoryGeneration += 1;
     _appIsResumed = false;
     WidgetsBinding.instance.removeObserver(this);
-    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
+    if (!widget.isGuest &&
+        !kIsWeb &&
+        defaultTargetPlatform == TargetPlatform.android) {
       _sharedLocationChannel.setMethodCallHandler(null);
     }
     _paymentHoldController.dispose();
@@ -1893,12 +1912,13 @@ class _StoreHomePageState extends State<StoreHomePage>
     _messagingTokenSubscription?.cancel();
     _foregroundMessageSubscription?.cancel();
     _messageOpenedSubscription?.cancel();
-    unawaited(_cancelAllIncomingOrderAlerts());
+    if (!widget.isGuest) unawaited(_cancelAllIncomingOrderAlerts());
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (widget.isGuest) return;
     if (state == AppLifecycleState.resumed) {
       _appIsResumed = true;
       _lastSharedLocationFailureId = '';
@@ -2182,6 +2202,10 @@ class _StoreHomePageState extends State<StoreHomePage>
   }
 
   Future<void> _setOnline(bool value) async {
+    if (widget.isGuest) {
+      await _guestAccess();
+      return;
+    }
     if (_storeLockedByAdmin) {
       _message('حالة المتجر مقفلة من الإدارة حالياً', error: true);
       return;
@@ -2942,13 +2966,14 @@ class _StoreHomePageState extends State<StoreHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: widget.isGuest ? const ValueKey('store_guest_orders_home') : null,
       appBar: AppBar(
         toolbarHeight: 72,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              storeName,
+              widget.isGuest ? 'متجر تجريبي' : storeName,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
@@ -2958,7 +2983,9 @@ class _StoreHomePageState extends State<StoreHomePage>
               ),
             ),
             Text(
-              _storeHeaderStatusLabel,
+              widget.isGuest
+                  ? 'وضع الاستكشاف · دون حساب'
+                  : _storeHeaderStatusLabel,
               style: TextStyle(
                 color: _storeHeaderStatusColor,
                 fontSize: 12,
@@ -2972,7 +2999,13 @@ class _StoreHomePageState extends State<StoreHomePage>
           PopupMenuButton<int>(
             tooltip: 'المزيد',
             icon: const Icon(Icons.more_vert_rounded),
-            onSelected: (value) => setState(() => _pageIndex = value),
+            onSelected: (value) {
+              if (widget.isGuest && value != 1) {
+                unawaited(_guestAccess());
+                return;
+              }
+              setState(() => _pageIndex = value);
+            },
             itemBuilder: (context) => const [
               PopupMenuItem(
                 value: 1,
@@ -3007,6 +3040,30 @@ class _StoreHomePageState extends State<StoreHomePage>
           const SizedBox(width: 4),
         ],
       ),
+      bottomNavigationBar: widget.isGuest
+          ? SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 10),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: widget.onGuestLogin,
+                        child: const Text('تسجيل الدخول'),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: FilledButton(
+                        onPressed: _guestApply,
+                        child: const Text('إنشاء حساب'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : null,
       body: Column(
         children: [
           if (_pageIndex == 0 || _pageIndex == 1)
@@ -3029,6 +3086,31 @@ class _StoreHomePageState extends State<StoreHomePage>
         ],
       ),
     );
+  }
+
+  void _guestApply() {
+    if (widget.onGuestApply != null) {
+      widget.onGuestApply!();
+      return;
+    }
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => const StoreApplicationPage()),
+    );
+  }
+
+  bool _guestPromptOpen = false;
+  Future<void> _guestAccess() async {
+    if (!widget.isGuest || _guestPromptOpen || !mounted) return;
+    _guestPromptOpen = true;
+    try {
+      await showStoreGuestAccess(
+        context,
+        onLogin: widget.onGuestLogin!,
+        onApply: _guestApply,
+      );
+    } finally {
+      _guestPromptOpen = false;
+    }
   }
 
   Widget _storeExternalDeliveryBanner() {
@@ -3344,6 +3426,10 @@ class _StoreHomePageState extends State<StoreHomePage>
     SallaGeoPoint? initialDeliveryPoint,
     String sharedLocationId = '',
   }) async {
+    if (widget.isGuest) {
+      await _guestAccess();
+      return;
+    }
     if (_storeExternalComposerOpen) return;
     _storeExternalComposerOpen = true;
     StoreOrder? created;
@@ -3413,7 +3499,9 @@ class _StoreHomePageState extends State<StoreHomePage>
         : _courierOnlyAwaitingApproval
         ? Colors.orange
         : (_online ? appColor : Colors.red);
-    final pillLabel = hasPendingStatusIntent
+    final pillLabel = widget.isGuest
+        ? 'معاينة'
+        : hasPendingStatusIntent
         ? (pendingAction == 'open' ? 'استكمال الفتح' : 'استكمال الإيقاف')
         : !liveReady
         ? (_storeLiveStatus == _StoreLiveStatus.error ? 'غير متصل' : 'يتصل')
@@ -3434,12 +3522,13 @@ class _StoreHomePageState extends State<StoreHomePage>
       padding: const EdgeInsetsDirectional.only(end: 6),
       child: InkWell(
         borderRadius: BorderRadius.circular(18),
-        onTap:
-            _courierOnlyChannelReady ||
-                _courierOnlyAwaitingApproval ||
-                _storeLockedByAdmin ||
-                _storeStatusUpdating ||
-                (!liveReady && !hasPendingStatusIntent)
+        onTap: widget.isGuest
+            ? () => unawaited(_guestAccess())
+            : _courierOnlyChannelReady ||
+                  _courierOnlyAwaitingApproval ||
+                  _storeLockedByAdmin ||
+                  _storeStatusUpdating ||
+                  (!liveReady && !hasPendingStatusIntent)
             ? null
             : () => _setOnline(
                 hasPendingStatusIntent ? pendingAction == 'open' : !_online,
@@ -4233,7 +4322,8 @@ class _StoreHomePageState extends State<StoreHomePage>
             ],
           ),
         ),
-        if (const {'completed', 'cancelled'}.contains(_filter))
+        if (!widget.isGuest &&
+            const {'completed', 'cancelled'}.contains(_filter))
           _storeHistorySummaryCard(),
         Expanded(child: _ordersListBody()),
       ],
@@ -4241,6 +4331,19 @@ class _StoreHomePageState extends State<StoreHomePage>
   }
 
   Widget _ordersListBody() {
+    if (widget.isGuest) {
+      return ListView(
+        padding: const EdgeInsets.fromLTRB(16, 4, 16, 18),
+        children: [
+          _empty('لا توجد طلبات في هذا القسم'),
+          const Text(
+            'استكشف التبويبات؛ تظهر طلبات متجرك بعد تسجيل الدخول.',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: mutedText, height: 1.5),
+          ),
+        ],
+      );
+    }
     if (_filter == 'courier_report') {
       return StoreCourierReport(
         key: ValueKey('courier_report_${sallaIdentity.uid}_$storeId'),
@@ -4901,7 +5004,8 @@ class _StoreHomePageState extends State<StoreHomePage>
         ),
         onSelected: (_) {
           setState(() => _filter = value);
-          if (const {'completed', 'cancelled'}.contains(value)) {
+          if (!widget.isGuest &&
+              const {'completed', 'cancelled'}.contains(value)) {
             _ensureStoreHistoryLoaded();
           }
         },
