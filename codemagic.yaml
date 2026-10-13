@@ -21,7 +21,7 @@ workflows:
         BUNDLE_ID: "com.salllla.marchent"
 
       flutter: stable
-      xcode: 26.3
+      xcode: 26.4
 
     scripts:
       - name: Get Flutter packages
