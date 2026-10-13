@@ -26,6 +26,7 @@ import 'firebase_options.dart';
 
 part 'src/data/models.dart';
 part 'src/data/store_numeric_input.dart';
+part 'src/data/store_push_registration.dart';
 part 'src/pages/store_home_page.dart';
 part 'src/pages/store_external_delivery.dart';
 part 'src/pages/store_order_report.dart';
@@ -33,6 +34,7 @@ part 'src/pages/store_report_protection_settings.dart';
 part 'src/pages/store_public_links.dart';
 part 'src/pages/store_guest.dart';
 part 'src/pages/store_privacy_request.dart';
+part 'src/pages/store_driver_contact.dart';
 
 const Duration _storeStartupTimeout = Duration(seconds: 25);
 
@@ -49,7 +51,8 @@ const defaultDispatchLeadMinutes = 5;
 const defaultStoreCommissionPercent = 18;
 const minStoreCommissionPercent = 5;
 const maxStoreCommissionPercent = 35;
-late final DatabaseReference database;
+// A failed startup may be retried after Firebase has already been configured.
+late DatabaseReference database;
 late SallaIdentity sallaIdentity;
 String get storeId => sallaIdentity.entityId;
 String get storeName => sallaIdentity.name;
@@ -120,6 +123,7 @@ Stream<Map<String, dynamic>?> watchStorePublicOrder(String orderId) {
 }
 
 Future<FirebaseApp> initializePlatformFirebase() {
+  if (Firebase.apps.isNotEmpty) return Future.value(Firebase.app());
   if (!kIsWeb &&
       (defaultTargetPlatform == TargetPlatform.android ||
           defaultTargetPlatform == TargetPlatform.iOS)) {
@@ -462,8 +466,9 @@ class _StoreStartupGlow extends StatelessWidget {
 
 class StoreStartupErrorApp extends StatelessWidget {
   final Object error;
+  final Future<void> Function()? retry;
 
-  const StoreStartupErrorApp({super.key, required this.error});
+  const StoreStartupErrorApp({super.key, required this.error, this.retry});
 
   @override
   Widget build(BuildContext context) {
@@ -474,7 +479,7 @@ class StoreStartupErrorApp extends StatelessWidget {
         child: Scaffold(
           backgroundColor: bgColor,
           body: Center(
-            child: Padding(
+            child: SingleChildScrollView(
               padding: const EdgeInsets.all(24),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -491,14 +496,20 @@ class StoreStartupErrorApp extends StatelessWidget {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    error.toString(),
+                  const Text(
+                    'تعذر الاتصال بخدمات سلة. تحقق من الإنترنت وأعد المحاولة.',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.black54,
                       fontWeight: FontWeight.w700,
                       height: 1.5,
                     ),
+                  ),
+                  const SizedBox(height: 16),
+                  FilledButton.icon(
+                    onPressed: () => (retry ?? main)(),
+                    icon: const Icon(Icons.refresh),
+                    label: const Text('إعادة المحاولة'),
                   ),
                 ],
               ),

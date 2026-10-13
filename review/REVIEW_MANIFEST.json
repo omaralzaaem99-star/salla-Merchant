@@ -1,0 +1,106 @@
+{
+  "createdAt": "2026-10-12T20:09:06.313Z",
+  "files": [
+    {
+      "path": "review/backend/src/code_login.js",
+      "sha256": "e9bfb52706177afc1c6083c54a36c8a39b2faf415522b6c201925369782795ed"
+    },
+    {
+      "path": "review/backend/src/store_applications.js",
+      "sha256": "f792d2793bbb702cc33696aa652e93c5f2413c0a0ce87eca3c48055454df4adf"
+    },
+    {
+      "path": "review/backend/src/store_privacy_retention.js",
+      "sha256": "2fb05224ae54f950873fafe28299391605229afd49c628425d0de2c33cda5e36"
+    },
+    {
+      "path": "review/backend/test/code_login_test.js",
+      "sha256": "69f18c34451a673b715167270610fe4279edb4e49d7aae585a5ddfde290d2ad9"
+    },
+    {
+      "path": "review/backend/test/store_applications_test.js",
+      "sha256": "7f84dd250f704edfdf9a133ca6a6f2e59a03a230a29b430900ba33f81b8e84a4"
+    },
+    {
+      "path": "review/backend/test/store_privacy_retention_test.js",
+      "sha256": "de35a45bfd9645e998e0b4b06bc533423c4222067113a410f63aa4c972b85261"
+    },
+    {
+      "path": "review/backend/firebase_functions.patch",
+      "sha256": "843e1d1876fb3ce609824f443c134c24926e3c1d7cf6c9caa082ed5b7f637045"
+    },
+    {
+      "path": "review/STORE_LISTING_INPUTS_AR.md",
+      "sha256": "2192a71e2b489911ccf78818d52d5516aec4705b21eae275ef046ff643415352"
+    },
+    {
+      "path": "review/PRIVACY_POLICY_DRAFT_AR.md",
+      "sha256": "566a2b5880c0fc8e7083426f3189896517909a79b9e0296b6522a6c617637f39"
+    },
+    {
+      "path": "AUDIT_AR.md",
+      "sha256": "a6802c54b50792b101ac8f12657519b0a2cd415762b0b6eadd4133736f509157"
+    },
+    {
+      "path": "review/dependency-upgrade/package.json",
+      "sha256": "3f0c4aeaee8022068bc0462aae3f8fde61284335d45a7527f4685ae29e72aba7"
+    },
+    {
+      "path": "review/dependency-upgrade/package-lock.json",
+      "sha256": "4fb556d5bc634e8c263a50c3d0927d3a5a1741349adfc44daeb2cde9950f4bc8"
+    },
+    {
+      "path": "RELEASE_A7_A9_AR.md",
+      "sha256": "075f7f8ed734c7ccc95115d1dbc54f3e14e640e0dd8a80dd7bc78436fb947a4e"
+    },
+    {
+      "path": "review/RELEASE_A7_A9_PROOF.json",
+      "sha256": "c0f18362abecb9f043333ece341fc4cda2fc4676d433fc85d68b3376e3041f13"
+    },
+    {
+      "path": "review/public/privacy/index.html",
+      "sha256": "fb4cc0e47b5433635a4a4fa8e996b57866dcb2c3b1227336f7e3fa45203a893c"
+    },
+    {
+      "path": "review/backend/README_AR.md",
+      "sha256": "cb4607c71f06401fc3555542b1a16a9c1b75a0ef8ce009479cfe6eb296de9fcf"
+    },
+    {
+      "path": "SECOND_REVIEW_AR.md",
+      "sha256": "68c52d091bd37f09be2b9ff1297878e33e32be7ca1f317fd9ee90a3c1d41d83b"
+    },
+    {
+      "path": "review/SECOND_REVIEW_PROOF.json",
+      "sha256": "4214fbde0cc2cc8488ff5182031a886abcf21a8d816ed6e4f1d483145169107a"
+    },
+    {
+      "path": "review/RETENTION_FOLLOWUP_PROOF.json",
+      "sha256": "d6c8c4ec987138fe1eb9c23ee898729adc13e6150092c539bccf46b381ea8120"
+    },
+    {
+      "path": "RETENTION_FOLLOWUP_AR.md",
+      "sha256": "f882687bd102ee40441c534085de798c49999c5e1f3c6eff12d2fba80a21fbc7"
+    },
+    {
+      "path": "review/backend/database.rules.json",
+      "sha256": "6d0bfaf3b960e54700eb9962b494a4a8d369c70ed4eefde15a83f66f657444d4"
+    },
+    {
+      "path": "DEPENDENCY_RELEASE_AR.md",
+      "sha256": "c335dadbca51770f795cde6ad76dd2b0fda94883fcb1ad2da7028fe25977d9cd"
+    },
+    {
+      "path": "review/DEPENDENCY_RELEASE_PROOF.json",
+      "sha256": "143727454b6946d8bed4bbbdcb3f3c7ab31a432c2ef275bae786c533ceaf09f3"
+    }
+  ],
+  "updatedAt": "2026-10-13T03:40:21.948Z",
+  "deploymentStatus": {
+    "backend": "production verified",
+    "rtdbRules": "production verified; one referral index, access unchanged",
+    "publicPolicy": "signup paragraph deployed and verified",
+    "dependencyUpgrade": "production verified; 138 functions, zero known npm audit findings",
+    "appStore": "not submitted",
+    "proof": "review/DEPENDENCY_RELEASE_PROOF.json"
+  }
+}

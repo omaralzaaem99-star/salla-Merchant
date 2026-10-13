@@ -1,0 +1,50 @@
+{
+  "verifiedAt": "2026-10-12T23:10:56.949Z",
+  "appSourceVersion": "1.0.1+30",
+  "runtimeSourceChanges": [
+    "sala_store/lib/src/pages/store_home_page.dart",
+    "sala_store/lib/src/pages/store_privacy_request.dart"
+  ],
+  "flutter": {
+    "passed": 152,
+    "newLayoutCases": 9
+  },
+  "backend": {
+    "passed": 51,
+    "skipped": 0
+  },
+  "rulesEmulator": {
+    "passed": 41,
+    "skipped": 0
+  },
+  "deletionIntegration": {
+    "emulatorOnly": true,
+    "authDeleted": true,
+    "oldIdTokenDenied": true,
+    "refreshTokenDenied": true,
+    "orderContactRemoved": true,
+    "financePreserved": true,
+    "storageStubbed": true
+  },
+  "catalogGate": {
+    "passed": true,
+    "stages": 12,
+    "sourceFingerprint": "1b0535c5350270376e171809de6bef87c90bdddd4cd1dc05d166e3301e2fbec0"
+  },
+  "targetedAnalysis": {
+    "errors": 0,
+    "warnings": 0,
+    "informational": 17
+  },
+  "npmApprovedLock": {
+    "critical": 1,
+    "high": 3,
+    "moderate": 3
+  },
+  "publicLinksHttpStatus": 200,
+  "iosPhysicalDeviceTested": false,
+  "iosArchiveBuilt": false,
+  "newApkBuilt": false,
+  "productionWrites": false,
+  "appleSubmitted": false
+}

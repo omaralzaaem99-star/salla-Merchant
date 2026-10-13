@@ -1334,6 +1334,16 @@ class SallaAuthService {
     await prefs.remove(_savedLoginKey(role));
   }
 
+  /// Account deletion also removes optional login hints (including legacy codes).
+  /// Ordinary logout deliberately retains those hints; deletion must not.
+  static Future<void> clearDeletedAccountLocalData(SallaUserRole role) async {
+    try {
+      await clearSavedLogin(role);
+    } finally {
+      await clearLocalSessions();
+    }
+  }
+
   static String collectionForRole(SallaUserRole role) {
     return switch (role) {
       SallaUserRole.driver => 'drivers',

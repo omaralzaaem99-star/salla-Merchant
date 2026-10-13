@@ -1,0 +1,247 @@
+{
+  "verifiedAt": "2026-10-12T22:44:12.478Z",
+  "project": "sela-food-prod",
+  "scope": [
+    "A7",
+    "A9",
+    "manual-step-2"
+  ],
+  "preview": {
+    "ok": true,
+    "mode": "preview",
+    "readOnlyProvider": true,
+    "project": "sela-food-prod",
+    "release": "store-privacy-retention-prod-v2",
+    "candidateSha256": "7520d05fa78991ce899196ee9232c7a4d3ee16bbaa6590e8fc1c347c41d9502a",
+    "candidateSourceFilesSha256": "b8d64719d5e1f3d3837effe7ad724567001a320cf140a09f42ceec4a5113f926",
+    "dependencySha256": "72b3d7c7c2ffa6d9c388d3d26624d7194488fc099752958d529f9fc3d4d6eb41",
+    "baseline": "backups/firebase_spriv2_baseline_20261012T223454Z",
+    "baselineLockSha256": "2d68c22deb18008b47ee496530c78a9b4338bca419e4868df3324e1825d1bc58",
+    "expiresAt": "2026-10-13T04:35:22.300Z",
+    "functionCount": 138,
+    "releasedFunctionCount": 138,
+    "targetFunctions": [
+      "firebaseOperationsReconciliation",
+      "linkAccountWithCode",
+      "manageStoreRecord",
+      "setStoreOperationalAvailability",
+      "settleStoreDues",
+      "updateStoreAdminStatus"
+    ],
+    "existingTargetFunctions": [
+      "firebaseOperationsReconciliation",
+      "linkAccountWithCode",
+      "manageStoreRecord",
+      "setStoreOperationalAvailability",
+      "settleStoreDues",
+      "updateStoreAdminStatus"
+    ],
+    "newTargetFunctions": [],
+    "untouchedFunctionCount": 132,
+    "databaseRules": "realtime-database-after-functions",
+    "applyRequired": true,
+    "rollback": {
+      "restoresFunctions": [
+        "firebaseOperationsReconciliation",
+        "linkAccountWithCode",
+        "manageStoreRecord",
+        "setStoreOperationalAvailability",
+        "settleStoreDues",
+        "updateStoreAdminStatus"
+      ],
+      "deletesNewFunctions": [],
+      "restoresRules": true,
+      "databaseDataDeleted": false
+    }
+  },
+  "release": {
+    "ok": true,
+    "mode": "apply",
+    "project": "sela-food-prod",
+    "release": "store-privacy-retention-prod-v2",
+    "deployedFunctions": [
+      "firebaseOperationsReconciliation",
+      "linkAccountWithCode",
+      "manageStoreRecord",
+      "setStoreOperationalAvailability",
+      "settleStoreDues",
+      "updateStoreAdminStatus"
+    ],
+    "deployedRules": "realtime-database",
+    "functionCount": 138,
+    "untouchedFunctionCount": 132,
+    "untouchedFunctionsUnchanged": true,
+    "healthVerified": true,
+    "healthState": "baseline",
+    "healthUnchanged": true,
+    "databaseRules": "released-and-verified",
+    "rollbackRequired": false,
+    "baseline": "firebase_spriv2_baseline_20261012T223454Z"
+  },
+  "catalog": {
+    "ok": true,
+    "mode": "full",
+    "providerConnection": false,
+    "sourceFingerprint": "a4997c0e86f75929c1b63f6409eb657a8a5eab68f56fca46fcdbde765ca4a592",
+    "stages": [
+      {
+        "name": "format-contract",
+        "durationSeconds": 2.721
+      },
+      {
+        "name": "server-store-menu",
+        "durationSeconds": 46.245
+      },
+      {
+        "name": "server-store-external-contracts",
+        "durationSeconds": 56.087
+      },
+      {
+        "name": "server-customer-courier-syntax",
+        "durationSeconds": 0.056
+      },
+      {
+        "name": "server-customer-courier-contracts",
+        "durationSeconds": 0.249
+      },
+      {
+        "name": "shared-location-contracts",
+        "durationSeconds": 3.855
+      },
+      {
+        "name": "customer-auth-otp-contracts",
+        "durationSeconds": 4.178
+      },
+      {
+        "name": "customer-cancellation-rtdb-rules",
+        "durationSeconds": 9.65
+      },
+      {
+        "name": "external-delivery-privacy-rtdb-rules",
+        "durationSeconds": 9.62
+      },
+      {
+        "name": "admin-behavior-and-contracts",
+        "durationSeconds": 35.856
+      },
+      {
+        "name": "store-consumer-contracts",
+        "durationSeconds": 29.095
+      },
+      {
+        "name": "customer-consumer-contracts",
+        "durationSeconds": 12.267
+      }
+    ]
+  },
+  "driver": {
+    "ok": true,
+    "mode": "driver-dispatch-flow-gate",
+    "stages": [
+      "format",
+      "auth-operational-session",
+      "driver-runtime",
+      "admin-driver-realtime",
+      "server-dispatch"
+    ],
+    "sourceSha256": "94032b1ed9a964a7ac7af78d5f1136adde4f292f234d92dd6dc6d7a56c5ec8ad",
+    "sourceFileCount": 787,
+    "providerConnection": false,
+    "deployment": "none"
+  },
+  "appSourceFilesVerified": 166,
+  "startupTests": {
+    "passed": 2,
+    "sizes": [
+      "320x568",
+      "1024x768"
+    ],
+    "physicalIOS": false
+  },
+  "targetedBackendTestsPassed": 51,
+  "hosting": {
+    "ok": true,
+    "phase": "after",
+    "checkedAt": "2026-10-12T22:42:24.221Z",
+    "candidateSha256": "db3951b196bf93f5d2b6f343f546b521847973b27360713610ecee211a818335",
+    "publicVersion": "projects/sela-food-prod/sites/sela-food-prod/versions/4b88523b1c3dc874",
+    "adminVersion": "projects/sela-food-prod/sites/sela-food-admin-prod/versions/187f724d6ee07327",
+    "files": [
+      {
+        "path": "404.html",
+        "sha256": "074bbb51d326519ff809fac87b10225b660c31a71fe82db2561f8f33b836cce6"
+      },
+      {
+        "path": "account-deletion/index.html",
+        "sha256": "81622d458b1ecd65838b83446de1d264660324cd20d3ab6360af4660d21d9c04"
+      },
+      {
+        "path": "assets/salla-logo.png",
+        "sha256": "1ded9affd66ecb321bc4b864a998ef71907a055db3e436eff8fcf3ad8fc4cc92"
+      },
+      {
+        "path": "assets/styles.css",
+        "sha256": "55ddd4fe688bfd5d6050bafc18beb070a45c71d45612fa628dd75529229de00a"
+      },
+      {
+        "path": "index.html",
+        "sha256": "bff804971fb69b34393a210daa0a757e291b3c5001439d98ebf5348e28e33e95"
+      },
+      {
+        "path": "privacy/index.html",
+        "sha256": "fb4cc0e47b5433635a4a4fa8e996b57866dcb2c3b1227336f7e3fa45203a893c"
+      },
+      {
+        "path": "robots.txt",
+        "sha256": "a94492d369c620837322635165fa4865e778584a4985b0a0553d1476e56c23af"
+      },
+      {
+        "path": "sitemap.xml",
+        "sha256": "be85eafae90c1f7437514d2c4a89d9e41c1c8826b5ed1d3a18839261586bd3f6"
+      },
+      {
+        "path": "support/index.html",
+        "sha256": "4ab21bdd4eb958da267c50c6cf894076482664d3bfeb2f7d5fa1ed2cce2fae52"
+      },
+      {
+        "path": "terms/index.html",
+        "sha256": "79564b3cf3ffea0262848d36c085c513131f4dd0d8d3c826cef57f4690b302fd"
+      }
+    ],
+    "customDomainVerified": true
+  },
+  "adminHostingUnchanged": true,
+  "legacyAccountUnchanged": true,
+  "dedicatedPendingAccountTest": {
+    "ok": true,
+    "startedAt": "2026-10-12T22:41:22.113Z",
+    "finishedAt": "2026-10-12T22:41:32.186Z",
+    "steps": [
+      "fixture paths absent",
+      "dedicated anonymous session created",
+      "refresh token valid before deletion",
+      "pending account created without operational store",
+      "owner status pending",
+      "callable deletion completed",
+      "Auth account no longer available",
+      "refresh token rejected",
+      "old session cannot recreate account"
+    ],
+    "oldSessionResponse": {
+      "httpStatus": 400,
+      "status": "FAILED_PRECONDITION"
+    },
+    "retainedNameByOwnerDecision": true
+  },
+  "limitations": [
+    "merchant name and linked identifiers retained pending owner decision",
+    "active merchant with media and financial commitments not live-tested",
+    "no physical iPhone/iPad or Xcode archive test",
+    "no App Store submission",
+    "dependency upgrade candidate not deployed"
+  ],
+  "previousAttempt": {
+    "cause": "Windows sleep interrupted local CLI monitoring",
+    "rollback": "verified before fresh preview and successful reapply"
+  }
+}

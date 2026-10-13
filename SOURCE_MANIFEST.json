@@ -1,66 +1,24 @@
 {
-  "version": "1.0.1+28",
-  "companyBaseline": "12d3d74665fb5ce121723c253f67f2c6821ccc96",
+  "schemaVersion": 1,
+  "version": "1.0.1+30",
+  "createdAt": "2026-10-12T19:55:02.603Z",
+  "scope": "Store Android/iOS app plus its two local shared packages",
+  "sourceFiles": 167,
   "files": [
     {
-      "path": "sala_store/lib/firebase_options.dart",
-      "bytes": 758,
-      "sha256": "a1db742f3cbae6d5db71f938b685a56fcf28adcc332eea593d96b05cc66f6e86"
+      "path": "sala_store/.gitignore",
+      "bytes": 748,
+      "sha256": "1e725ca8cb4e6c2a19dc889d0cebb497d954f091aba3b08d53df20edd0a98cdb"
     },
     {
-      "path": "sala_store/lib/main.dart",
-      "bytes": 21051,
-      "sha256": "36468511b6d1bdac3ba5afb07941d6192077f563de5db6767b8cb4fea6208d44"
+      "path": "sala_store/.metadata",
+      "bytes": 994,
+      "sha256": "5d8cd0733871ecb14e8e042d5478d540fad03d0324bb717687a7454d1a343861"
     },
     {
-      "path": "sala_store/lib/src/data/models.dart",
-      "bytes": 36969,
-      "sha256": "a5689ff579a35a4259355c33e2709136eab46ae51f0f0d6b5b1f3ccd252093dd"
-    },
-    {
-      "path": "sala_store/lib/src/data/store_numeric_input.dart",
-      "bytes": 2892,
-      "sha256": "610f2e40c78e1b2ab7ea17b1f7b69194164ae0ee87bbcb4ff49145fd5a7f3f6a"
-    },
-    {
-      "path": "sala_store/lib/src/pages/store_external_delivery.dart",
-      "bytes": 100603,
-      "sha256": "5ed0b6a2ce06b6f688f2c1b1c360e3e171d9bf442636b1916ed833a764a221f9"
-    },
-    {
-      "path": "sala_store/lib/src/pages/store_guest.dart",
-      "bytes": 36178,
-      "sha256": "481707a011941ad824063b23f5cb53927022c3d4097aae8f31666267f0dcdb99"
-    },
-    {
-      "path": "sala_store/lib/src/pages/store_home_page.dart",
-      "bytes": 298790,
-      "sha256": "393cfdfefaf935abb1df40cdaa4ed1fda33725651b703a4cf2f9fad974a7e4d0"
-    },
-    {
-      "path": "sala_store/lib/src/pages/store_order_report.dart",
-      "bytes": 32273,
-      "sha256": "35fb3cd8933b25a0e9d25ea4d281da45832965e28443e309f63984661b09ca48"
-    },
-    {
-      "path": "sala_store/lib/src/pages/store_privacy_request.dart",
-      "bytes": 7091,
-      "sha256": "84b4294de77e1b4178aa5c1492cc6804e0d42a3c04658918220b005f090e537f"
-    },
-    {
-      "path": "sala_store/lib/src/pages/store_public_links.dart",
-      "bytes": 4249,
-      "sha256": "55a151fade73409559b118dbfb68dfbf9f596a3e27aa23299cc181438fd0092c"
-    },
-    {
-      "path": "sala_store/lib/src/pages/store_report_protection_settings.dart",
-      "bytes": 11406,
-      "sha256": "8543d9e4459ace2394bb71029e0f1d895783a7f5cdcb218a9701fa606c085655"
-    },
-    {
-      "path": "sala_store/assets/images/salla_store_app_icon.png",
-      "bytes": 147602,
-      "sha256": "747997eb2f30e7f590babaa55eaff4905581315936cefc7e3c5583a6bf5cc809"
+      "path": "sala_store/analysis_options.yaml",
+      "bytes": 1448,
+      "sha256": "b63207cf529949ec4727b68c23dbb38ce255b6f6f4ae1effcb5c1dcf2852d238"
     },
     {
       "path": "sala_store/android/.gitignore",
@@ -86,11 +44,6 @@
       "path": "sala_store/android/app/src/main/AndroidManifest.xml",
       "bytes": 6037,
       "sha256": "a7549997bf3dac304021248322e82a7bdaa7759b35c84b2b32b05bf6d5cc581a"
-    },
-    {
-      "path": "sala_store/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java",
-      "bytes": 3487,
-      "sha256": "19850f13c244676fb6cc0aefae6629e9f340b1444ae41670bdb48e73552fd4b4"
     },
     {
       "path": "sala_store/android/app/src/main/kotlin/com/salla/sala_store/MainActivity.kt",
@@ -288,6 +241,11 @@
       "sha256": "d449f5e389d4909f604cd067f169dd68718f737f59b362c8e9c9ffe8ca816197"
     },
     {
+      "path": "sala_store/assets/images/salla_store_app_icon.png",
+      "bytes": 147602,
+      "sha256": "747997eb2f30e7f590babaa55eaff4905581315936cefc7e3c5583a6bf5cc809"
+    },
+    {
       "path": "sala_store/ios/.gitignore",
       "bytes": 603,
       "sha256": "e85b4db8ba6ed14708e5f7d3c60336e5a3067ce11329b84aa8ba5d98603ee253"
@@ -428,6 +386,11 @@
       "sha256": "dcea4686c02065e56217fd19fcfb73d7509b41872e7486126149d47a18559363"
     },
     {
+      "path": "sala_store/ios/Runner/Firebase/README_AR.md",
+      "bytes": 644,
+      "sha256": "2ec405ce6f1b9ff28de7f3b62e7d1922f0c4de00bcd95f2179c158c6d6d0bf17"
+    },
+    {
       "path": "sala_store/ios/Runner/Firebase/dev/GoogleService-Info.plist",
       "bytes": 1011,
       "sha256": "91493121bb402c8bd305d4c156856b9c079f42ccf5fd1c4b1b8d193703e903cc"
@@ -438,24 +401,9 @@
       "sha256": "2d4c5cdb841bc30a898d3f36d414044bf25dbaf910663497b6b6e2bb92916399"
     },
     {
-      "path": "sala_store/ios/Runner/Firebase/README_AR.md",
-      "bytes": 644,
-      "sha256": "2ec405ce6f1b9ff28de7f3b62e7d1922f0c4de00bcd95f2179c158c6d6d0bf17"
-    },
-    {
-      "path": "sala_store/ios/Runner/GeneratedPluginRegistrant.h",
-      "bytes": 378,
-      "sha256": "a5f88cc6415d2e639d2cb549348b84e02a7fdd0261603b0063abef6fa11f075a"
-    },
-    {
-      "path": "sala_store/ios/Runner/GeneratedPluginRegistrant.m",
-      "bytes": 3068,
-      "sha256": "add64a423e6efaadc4e40c8c6529039397b65d2607829b59423221e6c093fd9b"
-    },
-    {
       "path": "sala_store/ios/Runner/Info.plist",
-      "bytes": 2700,
-      "sha256": "3977cc83a13920871e2878247cc4861d0f5d9171319d72f97c26968f46ae7b0e"
+      "bytes": 2875,
+      "sha256": "ea26b7dd53dccebe7ae56c079e25d64837b9b0b481bf97b4c5a24b4b5705ac0e"
     },
     {
       "path": "sala_store/ios/Runner/PrivacyInfo.xcprivacy",
@@ -523,14 +471,89 @@
       "sha256": "c0e04141287eb7f9c9f3d31cf5be8cb626a9ea71351206c9121578e8b8f480c3"
     },
     {
+      "path": "sala_store/lib/firebase_options.dart",
+      "bytes": 758,
+      "sha256": "a1db742f3cbae6d5db71f938b685a56fcf28adcc332eea593d96b05cc66f6e86"
+    },
+    {
+      "path": "sala_store/lib/main.dart",
+      "bytes": 21731,
+      "sha256": "830f6a0299a8c64cd41c049fc3e97d53cc0beb5576f7db4c722ac36fa2316662"
+    },
+    {
+      "path": "sala_store/lib/src/data/models.dart",
+      "bytes": 36969,
+      "sha256": "a5689ff579a35a4259355c33e2709136eab46ae51f0f0d6b5b1f3ccd252093dd"
+    },
+    {
+      "path": "sala_store/lib/src/data/store_numeric_input.dart",
+      "bytes": 2892,
+      "sha256": "610f2e40c78e1b2ab7ea17b1f7b69194164ae0ee87bbcb4ff49145fd5a7f3f6a"
+    },
+    {
+      "path": "sala_store/lib/src/data/store_push_registration.dart",
+      "bytes": 575,
+      "sha256": "a850f6fd1a1fa937eee126c30df19c2b674ae0939273c3f74448c98d6564cb74"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_driver_contact.dart",
+      "bytes": 2648,
+      "sha256": "1399fe422e75d5664a2afd8d4f5836913c6e49ce50bac4fc5a3fea4255c6011a"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_external_delivery.dart",
+      "bytes": 100603,
+      "sha256": "5ed0b6a2ce06b6f688f2c1b1c360e3e171d9bf442636b1916ed833a764a221f9"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_guest.dart",
+      "bytes": 37224,
+      "sha256": "cfd5d4e717a6c80485fc0c9bd892754e7b649a83d8db9db66f0c38cb81c9c190"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_home_page.dart",
+      "bytes": 299021,
+      "sha256": "21b607e80a7d7f0924a61c7c08711c6180e9c92b91ad25219280ca08c52ddab5"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_order_report.dart",
+      "bytes": 32273,
+      "sha256": "35fb3cd8933b25a0e9d25ea4d281da45832965e28443e309f63984661b09ca48"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_privacy_request.dart",
+      "bytes": 15423,
+      "sha256": "8ba5e70eef4b5cc96f144dbe6bf0a5623a5d3d075809b571b7bd043794824b8d"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_public_links.dart",
+      "bytes": 5084,
+      "sha256": "9d023ffaa927865b07bf4af0f72e66b795a12d06749a757ea0b16ac4533d55d0"
+    },
+    {
+      "path": "sala_store/lib/src/pages/store_report_protection_settings.dart",
+      "bytes": 11406,
+      "sha256": "8543d9e4459ace2394bb71029e0f1d895783a7f5cdcb218a9701fa606c085655"
+    },
+    {
+      "path": "sala_store/pubspec.lock",
+      "bytes": 28944,
+      "sha256": "12001aa8806c8c9f1262db2fab93502fbc1055390de48463ed313ac463fe1b7a"
+    },
+    {
+      "path": "sala_store/pubspec.yaml",
+      "bytes": 4312,
+      "sha256": "63972208f9f7a1403b4afcadbead51d0c067771f6756fceed6f3963ad811d58f"
+    },
+    {
       "path": "sala_store/test/osm_map_hygiene_contract_test.dart",
       "bytes": 1334,
       "sha256": "e8c7ca271e8e7c3bd3f40855835d11f5bf854e40ae46465bc14b656796eb3bc0"
     },
     {
       "path": "sala_store/test/realtime_listener_recovery_test.dart",
-      "bytes": 11912,
-      "sha256": "aa52dce2a5f3384528b01e3a674248ed2d74e09a9844402cadbdd7e9a930cff3"
+      "bytes": 11957,
+      "sha256": "9561be96f56d558848df609a891b507600e25bba9040bfc66a1c336a6fd0ab34"
     },
     {
       "path": "sala_store/test/store_amount_input_test.dart",
@@ -541,6 +564,11 @@
       "path": "sala_store/test/store_branding_startup_test.dart",
       "bytes": 7684,
       "sha256": "de402f96f8dd4ec8cd89ad002e298b8d70134a90e97ad003a2830de1f1e214e4"
+    },
+    {
+      "path": "sala_store/test/store_driver_contact_test.dart",
+      "bytes": 3328,
+      "sha256": "0634e48a89c2e0eee2e7fdad68233e2442ad07f60c90ce76c49fbbebfb9cba63"
     },
     {
       "path": "sala_store/test/store_external_delivery_area_picker_test.dart",
@@ -594,13 +622,18 @@
     },
     {
       "path": "sala_store/test/store_privacy_request_test.dart",
-      "bytes": 3906,
-      "sha256": "6b13e73e508244ea2f316bdbb8f72b93f99bec5a6e315c0e4cbbea1fd9cbf06e"
+      "bytes": 8311,
+      "sha256": "f304674b70b25fa5d15ea9ed67fc2f6c1b7c9af8b77466d9a95e9071805e8275"
     },
     {
       "path": "sala_store/test/store_public_links_test.dart",
-      "bytes": 4183,
-      "sha256": "33960748a9a9aecb781f93f4f4dc036d5ae6aa2460bcc3967fb59e7991fe380c"
+      "bytes": 4176,
+      "sha256": "d4292dff3f1f3b1f6d8828e11015906ac057fbc2623ff3465bdf2c939041a2d6"
+    },
+    {
+      "path": "sala_store/test/store_push_registration_test.dart",
+      "bytes": 1060,
+      "sha256": "82f53dbe77141c4528068b158e8133a454b7ed095087745d41100c6056f76884"
     },
     {
       "path": "sala_store/test/store_report_access_test.dart",
@@ -613,6 +646,11 @@
       "sha256": "19dbe203f7d34d41393bc19fe18306ab0ec3faa4cd929c4643b2196a937fd493"
     },
     {
+      "path": "sala_store/test/store_startup_error_test.dart",
+      "bytes": 1058,
+      "sha256": "082a1b47ce4d96471ac18652fe1aca4737659f5cb7c49c4ab08000d579c3dbcc"
+    },
+    {
       "path": "sala_store/test/store_subscription_contract_test.dart",
       "bytes": 3527,
       "sha256": "9ad9d7b7607356f36b1f82d2cf6be82b284a7cd08e722232188ea8623967f347"
@@ -623,29 +661,24 @@
       "sha256": "e189ded641df0cd7ab11b5b78cffb774904f9b24814cf1a4d2d4506076e6ed67"
     },
     {
-      "path": "sala_store/pubspec.yaml",
-      "bytes": 4311,
-      "sha256": "86f65c3308a1e8e88688f6255de17da78a4bf8fe9eeaffb3ca01dc11e9715b54"
-    },
-    {
-      "path": "sala_store/pubspec.lock",
-      "bytes": 28944,
-      "sha256": "12001aa8806c8c9f1262db2fab93502fbc1055390de48463ed313ac463fe1b7a"
-    },
-    {
-      "path": "sala_store/analysis_options.yaml",
-      "bytes": 1448,
-      "sha256": "b63207cf529949ec4727b68c23dbb38ce255b6f6f4ae1effcb5c1dcf2852d238"
-    },
-    {
-      "path": "sala_store/.gitignore",
+      "path": "packages/salla_auth/.gitignore",
       "bytes": 748,
       "sha256": "1e725ca8cb4e6c2a19dc889d0cebb497d954f091aba3b08d53df20edd0a98cdb"
     },
     {
-      "path": "sala_store/.metadata",
-      "bytes": 994,
-      "sha256": "5d8cd0733871ecb14e8e042d5478d540fad03d0324bb717687a7454d1a343861"
+      "path": "packages/salla_auth/.metadata",
+      "bytes": 964,
+      "sha256": "b7713b75d4cd74a2a9d0589b4e49c6adc86785ecee7651d45bad4a4013986402"
+    },
+    {
+      "path": "packages/salla_auth/README.md",
+      "bytes": 40,
+      "sha256": "9f633ec6d2328a4f0c26a6ac5c57e4dbc051f25bbb3510f437cb9fc0b947bcea"
+    },
+    {
+      "path": "packages/salla_auth/analysis_options.yaml",
+      "bytes": 45,
+      "sha256": "f2de2b3d32409892ff6819f834aa2e7671c90f9646e888fa0f6049cffe5a369e"
     },
     {
       "path": "packages/salla_auth/lib/main.dart",
@@ -654,8 +687,8 @@
     },
     {
       "path": "packages/salla_auth/lib/salla_auth.dart",
-      "bytes": 136711,
-      "sha256": "ae83bdfa8bb4c7d3c2553ab401808bbfb1e4c853f27a3bed0ae0b3b59db4cdc0"
+      "bytes": 137054,
+      "sha256": "1d9583d8d27e51278ea439bc68b722a58681e9fffa9271acb1178f68a7676ea6"
     },
     {
       "path": "packages/salla_auth/lib/src/app_check_monitoring.dart",
@@ -668,9 +701,94 @@
       "sha256": "65a55b169365e1b3402a92bcc8930f2b3b0b58f343d924d8e5cbb8096aea4d51"
     },
     {
+      "path": "packages/salla_auth/pubspec.lock",
+      "bytes": 14739,
+      "sha256": "d6641d80cf2e2253834192cdbc34bc2c772150f422a3edbac8a0df3fbfdeb58f"
+    },
+    {
       "path": "packages/salla_auth/pubspec.yaml",
       "bytes": 492,
       "sha256": "46ed59a08e791ac5efa86bf5b04a8b61ae6b039a95d8f7d57c7a5fb1019b5b6c"
+    },
+    {
+      "path": "packages/salla_auth/test/admin_clipboard_credentials_test.dart",
+      "bytes": 1111,
+      "sha256": "6ba8a72bb0e6d0cf7c8794f00ced680638c4372f1ed35b37a36ca76fa33b1456"
+    },
+    {
+      "path": "packages/salla_auth/test/app_check_monitoring_contract_test.dart",
+      "bytes": 2311,
+      "sha256": "232437a48989fe6119e948bc7c7953a8709e77d70d105e5811afd5069fc134e2"
+    },
+    {
+      "path": "packages/salla_auth/test/deleted_account_local_data_test.dart",
+      "bytes": 1451,
+      "sha256": "7100d9c3e5c9727786912e0b3811edd49984cf02dc16a142292d8401ab1b7642"
+    },
+    {
+      "path": "packages/salla_auth/test/lifecycle_safe_routes_test.dart",
+      "bytes": 3496,
+      "sha256": "61f31333431276935dd90467b7fee6f1255dc28b714d3a57c41e3e6aae1b1d7e"
+    },
+    {
+      "path": "packages/salla_auth/test/local_identity_startup_contract_test.dart",
+      "bytes": 908,
+      "sha256": "673ecd06cb2299038a3797ff81e6ccc6fb49c813b565cbb40bd4f92b992502fd"
+    },
+    {
+      "path": "packages/salla_auth/test/local_retry_intent_test.dart",
+      "bytes": 6542,
+      "sha256": "873dcdf9df279c25a735124f6f9d5f6862b123fa88e6ded0dda5788aa6f29592"
+    },
+    {
+      "path": "packages/salla_auth/test/operational_account_status_test.dart",
+      "bytes": 8581,
+      "sha256": "2ca75f1abe33b3b212ecd48c5fb5e864df691c53a150fb155f8527ec47276c3f"
+    },
+    {
+      "path": "packages/salla_auth/test/session_read_recovery_test.dart",
+      "bytes": 3345,
+      "sha256": "1907396bcf2a270a278ed1d3a663e83ed79c3ad14c579abf55938695a69176a9"
+    },
+    {
+      "path": "packages/salla_auth/test/whatsapp_otp_retry_state_test.dart",
+      "bytes": 6911,
+      "sha256": "723b528bf1a4155614d4e3932983593eeb19f94a764f36761ab78fb9fb47486a"
+    },
+    {
+      "path": "packages/salla_auth/web/favicon.png",
+      "bytes": 917,
+      "sha256": "7ab2525f4b86b65d3e4c70358a17e5a1aaf6f437f99cbcc046dad73d59bb9015"
+    },
+    {
+      "path": "packages/salla_auth/web/icons/Icon-192.png",
+      "bytes": 5292,
+      "sha256": "3dce99077602f70421c1c6b2a240bc9b83d64d86681d45f2154143310c980be3"
+    },
+    {
+      "path": "packages/salla_auth/web/icons/Icon-512.png",
+      "bytes": 8252,
+      "sha256": "baccb205ae45f0b421be1657259b4943ac40c95094ab877f3bcbe12cd544dcbe"
+    },
+    {
+      "path": "packages/salla_auth/web/icons/Icon-maskable-192.png",
+      "bytes": 5594,
+      "sha256": "d2c842e22a9f4ec9d996b23373a905c88d9a203b220c5c151885ad621f974b5c"
+    },
+    {
+      "path": "packages/salla_auth/web/icons/Icon-maskable-512.png",
+      "bytes": 20998,
+      "sha256": "6aee06cdcab6b2aef74b1734c4778f4421d2da100b0ff9e52b21b55240202929"
+    },
+    {
+      "path": "packages/salla_auth/web/index.html",
+      "bytes": 1571,
+      "sha256": "cb8491ca6cebc00a7f919296c8dceaa080c2cff5701a83b46bcc554fa9b83c46"
+    },
+    {
+      "path": "packages/salla_auth/web/manifest.json",
+      "bytes": 951,
+      "sha256": "b8017dc7b95cb53f0fad747174be1a89c5ea31327d31fb0fc06ed08cf0df5ea2"
     },
     {
       "path": "packages/salla_data/lib/salla_data.dart",
@@ -678,9 +796,50 @@
       "sha256": "81f33281e94531b2604a17804c72236bf9f7343449a17d960bcee2b95364f141"
     },
     {
+      "path": "packages/salla_data/pubspec.lock",
+      "bytes": 16379,
+      "sha256": "2abdbbd8c2dab8c5669b2e0a5044f5b5e08854e8d75744edbaf4bce2f6781158"
+    },
+    {
       "path": "packages/salla_data/pubspec.yaml",
       "bytes": 335,
       "sha256": "6a63dbc681d4d27e816d379c90a093f2e369fa16c5d457b0ee5e51658b60c121"
+    },
+    {
+      "path": "packages/salla_data/test/arabic_place_search_test.dart",
+      "bytes": 3410,
+      "sha256": "bf8c45777d6ae33888d1f9fbb0f1ab88f26beae6e3400d3565a047a01b4abb2f"
+    },
+    {
+      "path": "packages/salla_data/test/courier_schedule_test.dart",
+      "bytes": 1363,
+      "sha256": "6d722534d9ebab3afb80da3a911dab5e7034c9061f251e6f3f37966eb283dd3d"
+    },
+    {
+      "path": "packages/salla_data/test/driver_shift_schedule_test.dart",
+      "bytes": 3447,
+      "sha256": "c98427c471ae41b50559ed1b303f29251aa31fd898ec387530693550c83f9b5d"
+    },
+    {
+      "path": "packages/salla_data/test/salla_data_configuration_test.dart",
+      "bytes": 11505,
+      "sha256": "827d1ef0c72f8ff432ee0df081dbdcbcd42713e49abd1588e6e9db425209e7b8"
+    },
+    {
+      "path": "packages/salla_data/test/shared_location_input_test.dart",
+      "bytes": 4275,
+      "sha256": "ddf0c9c76c5b1fa06b8f9bafc8060512acd300e5002064e2875279a15fb3d885"
+    },
+    {
+      "path": "packages/salla_data/test/store_service_zone_test.dart",
+      "bytes": 21978,
+      "sha256": "3476694713f40f25451267d4b873ad6e7230c221366ab3f1b5a80073f7fc1bca"
+    },
+    {
+      "path": "sala_store/test/store_review_layout_test.dart",
+      "bytes": 2996,
+      "sha256": "c8233c6d29e6c91c27dda0be98c8d88fc830e4aa3652dc37b1ddc30b401f9c48"
     }
-  ]
+  ],
+  "updatedAt": "2026-10-12T23:09:23.442Z"
 }

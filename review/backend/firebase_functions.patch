@@ -1,0 +1,11 @@
+diff --git a/server_worker/src/firebase_functions.js b/server_worker/src/firebase_functions.js
+--- a/server_worker/src/firebase_functions.js
++++ b/server_worker/src/firebase_functions.js
+@@ -803,6 +803,7 @@
+         database: getDatabase(),
+         uid,
+         input,
+         // The public callable must never create the first production admin.
++        ip: request.rawRequest?.ip || request.rawRequest?.socket?.remoteAddress,
+         // Bootstrap is available only to the trusted owner-side setup tool.
+         allowFirstAdminBootstrap: false,

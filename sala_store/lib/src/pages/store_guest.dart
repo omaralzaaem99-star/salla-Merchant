@@ -42,7 +42,15 @@ Future<Map<String, dynamic>> callMerchantAccount(
   (await FirebaseFunctions.instanceFor(region: 'europe-west1')
           .httpsCallable(
             'manageStoreRecord',
-            options: HttpsCallableOptions(timeout: const Duration(seconds: 30)),
+            options: HttpsCallableOptions(
+              timeout: Duration(
+                seconds:
+                    data['action'] == 'schedule_privacy_deletion' &&
+                        data['graceDays'] == 0
+                    ? 120
+                    : 30,
+              ),
+            ),
           )
           .call<Map<String, dynamic>>(data))
       .data,
@@ -326,6 +334,7 @@ class _StorePendingAccountPageState extends State<StorePendingAccountPage>
             'approved',
             'active',
             'sign_in_required',
+            'deletion_scheduled',
           ].contains(response['status']))
         throw StateError('unconfirmed');
       setState(() => _status = '${response['status']}');
@@ -460,6 +469,8 @@ class _StorePendingAccountPageState extends State<StorePendingAccountPage>
                     Text(
                       _completed
                           ? 'تم تفعيل حسابك'
+                          : _status == 'deletion_scheduled'
+                          ? 'أُغلق الحساب بطلبك'
                           : _status == 'sign_in_required'
                           ? 'تابع حسابك مع الدعم'
                           : _opening
@@ -476,7 +487,9 @@ class _StorePendingAccountPageState extends State<StorePendingAccountPage>
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      _status == 'sign_in_required'
+                      _status == 'deletion_scheduled'
+                          ? 'أُغلق الحساب. تابع حالة الحذف من صفحة حذف الحساب أو لدى الدعم.'
+                          : _status == 'sign_in_required'
                           ? 'استخدم رقم هاتفك ورمز الإدارة لتسجيل الدخول، أو تواصل مع الدعم لمتابعة حسابك.'
                           : 'استلمنا معلومات متجرك. تراجع الإدارة طلبك وتستكمل تفعيل حسابك خلال أقل من 24 ساعة.',
                       textAlign: TextAlign.center,
@@ -540,6 +553,17 @@ class _StorePendingAccountPageState extends State<StorePendingAccountPage>
                   ),
                 ),
               const SizedBox(height: 12),
+              TextButton.icon(
+                onPressed: _busy || _opening
+                    ? null
+                    : () => openStorePrivacyDeletion(
+                        context,
+                        applicationId:
+                            '${widget.receipt['applicationId'] ?? ''}',
+                      ),
+                icon: const Icon(Icons.person_remove_outlined),
+                label: const Text('حذف الحساب'),
+              ),
               FilledButton.icon(
                 onPressed: _busy || _completed ? null : _refresh,
                 icon: _busy

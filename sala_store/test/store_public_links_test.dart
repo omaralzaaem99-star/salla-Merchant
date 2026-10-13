@@ -31,7 +31,7 @@ void main() {
     for (final label in [
       'سياسة الخصوصية',
       'الدعم',
-      'طلب حذف الحساب',
+      'حذف الحساب',
       'شروط الاستخدام',
     ]) {
       await tester.tap(find.text(label));

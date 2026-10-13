@@ -29,9 +29,9 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>نحتاج إلى موقع المتجر لتثبيت نقطة الاستلام ومراجعة مسافة التوصيل بدقة.</string>
+	<string>نستخدم موقعك عند اختيار «موقعي الحالي» لتحديد نقطة الاستلام أو التسليم وحساب المسافة. يمكنك اختيار النقطة يدوياً دون السماح بالموقع.</string>
 <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-<string>We use your location to set your store pickup location and calculate delivery distance accurately.</string>
+<string>We use your location when you choose your current location to set a pickup or delivery point and calculate distance. You can select the point manually instead.</string>
 <key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

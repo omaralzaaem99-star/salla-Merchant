@@ -1,0 +1,93 @@
+{
+  "verifiedAt": "2026-10-13T03:40:21.948Z",
+  "project": "sela-food-prod",
+  "release": "production-dependency-security-patch-20261013",
+  "fingerprint": "26c65926519fe61610bf6844fc8ada1935cb05d072300e8e8b471e4118a08315",
+  "beforeLockSha256": "6ab4fb99e6736fb7f5a69e6d0bfad229e2253fc7125ac2cad0ca9fe348bece86",
+  "afterLockSha256": "4fb556d5bc634e8c263a50c3d0927d3a5a1741349adfc44daeb2cde9950f4bc8",
+  "functions": 138,
+  "sourceVariants": 24,
+  "allFunctionsVerified": true,
+  "configurationUnchanged": true,
+  "iamUnchanged": true,
+  "databaseRulesUnchanged": true,
+  "nonLockArchiveFilesUnchanged": true,
+  "knownNpmVulnerabilities": {
+    "before": {
+      "critical": 1,
+      "high": 3,
+      "moderate": 3,
+      "total": 7
+    },
+    "after": 0
+  },
+  "tests": {
+    "candidateNode22": {
+      "passed": 440,
+      "failed": 0
+    },
+    "releaseTool": {
+      "passed": 23,
+      "failed": 0
+    },
+    "legacyRulesEmulator": {
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    "qualityGates": {
+      "catalog": {
+        "hash": "adbcea479d46a2b398bf07483957f9960962f6ae4b5083c9407302f9555377b5",
+        "fingerprint": "f297b8c2fd7b7e303b2f955b6d41991317dc34918284a92641bbcbbec3c5a7a0"
+      },
+      "driver": {
+        "hash": "25a85fe732d273c6c33ff521ae7314a4ac425188672c1a448b66fd20e93f09ae",
+        "fingerprint": "e4b44fdfd0a580c74bd1f6ba5c5f5863ef0f56a88107c714020f827fa6b98425"
+      }
+    },
+    "discoveryVariants": 24,
+    "importFailureRecovery": {
+      "passed": 9,
+      "failed": 0
+    }
+  },
+  "canary": {
+    "ok": true,
+    "at": "2026-10-13T02:05:39.765Z",
+    "function": "manageStoreRecord",
+    "httpStatus": 401,
+    "code": "UNAUTHENTICATED",
+    "authenticated": false,
+    "createdAccounts": false,
+    "createdOrders": false
+  },
+  "legacyClients": {
+    "canonicalOrderAccessPreserved": true,
+    "forcedUpgrade": false,
+    "privacyRequiredEnabledForLegacyStores": false,
+    "fieldLevelPrivacyMigrationDeferred": true
+  },
+  "limitations": [
+    "No authenticated physical old-client acceptance test in this wave.",
+    "No new native build or physical iPhone/iPad test.",
+    "No App Store upload or submission.",
+    "Retained merchant name and financial records are not anonymous and still require an accurate privacy disclosure.",
+    "Zero known npm audit findings does not establish complete security or App Store compliance."
+  ],
+  "runtimeVerification": {
+    "at": "2026-10-13T03:39:39.822Z",
+    "functions": 138,
+    "ready": true,
+    "allTrafficOnVerifiedRevisions": true,
+    "builtSourceAndLockVerified": true,
+    "proofSha256": "4ce95a42c15d143b420814e65b9760f66fc507730a45cd0f8b9bf5415be8c050"
+  },
+  "recoveredDeploymentIncident": {
+    "function": "getAdminAppErrorPage",
+    "providerError": "ContainerImageImportFailed",
+    "previousRevisionRetainedTrafficPercent": 100,
+    "recoveryFingerprint": "9e250ef0844def3012fbd7cbb34ff258f1a6d6aad53559556552945f8c959f6e",
+    "verifiedAt": "2026-10-13T02:46:36.728Z",
+    "newRevisionReady": true
+  }
+}

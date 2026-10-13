@@ -1,5 +1,31 @@
 part of '../../main.dart';
 
+class StoreSupportCallButton extends StatelessWidget {
+  const StoreSupportCallButton({super.key, this.openLink});
+  final Future<bool> Function(Uri)? openLink;
+
+  @override
+  Widget build(BuildContext context) => IconButton(
+    tooltip: 'الاتصال بالدعم',
+    icon: const Icon(Icons.support_agent_rounded, size: 22, color: appColor),
+    onPressed: () async {
+      final uri = Uri(scheme: 'tel', path: '+9647775655367');
+      try {
+        if (await (openLink?.call(uri) ??
+            launchUrl(uri, mode: LaunchMode.externalApplication)))
+          return;
+      } catch (_) {}
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('تعذر فتح الاتصال. رقم الدعم: 07775655367'),
+          ),
+        );
+      }
+    },
+  );
+}
+
 /// Fixed public destinations; never attach a session, account ID or order data.
 class StorePublicLinks extends StatefulWidget {
   const StorePublicLinks({
@@ -62,7 +88,7 @@ class _StorePublicLinksState extends State<StorePublicLinks> {
         ),
         const SizedBox(height: 6),
         const Text(
-          'اطّلع على استخدام بياناتك، وأرسل طلب حذف حسابك إلى الإدارة من التطبيق.',
+          'اطّلع على استخدام بياناتك، ويمكنك بدء حذف حسابك من التطبيق.',
           style: TextStyle(color: mutedText),
         ),
       ],
@@ -81,11 +107,11 @@ class _StorePublicLinksState extends State<StorePublicLinks> {
               TextButton.icon(
                 onPressed: _opening ? null : widget.onRequestDeletion,
                 icon: const Icon(Icons.person_remove_outlined, size: 19),
-                label: const Text('طلب حذف الحساب'),
+                label: const Text('حذف الحساب'),
               )
             else
               _link(
-                'طلب حذف الحساب',
+                'حذف الحساب',
                 Icons.person_remove_outlined,
                 StorePublicLinks.deletion,
               ),

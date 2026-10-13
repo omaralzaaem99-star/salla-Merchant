@@ -1,0 +1,214 @@
+{
+  "verifiedAt": "2026-10-13T00:00:34.029Z",
+  "project": "sela-food-prod",
+  "preview": {
+    "ok": true,
+    "mode": "preview",
+    "readOnlyProvider": true,
+    "project": "sela-food-prod",
+    "release": "store-privacy-retention-prod-v2",
+    "candidateSha256": "7759ff57f70c984379600fc2f9d292f73658835d84c3d664aacf050fba5176b7",
+    "candidateSourceFilesSha256": "af1f021ed2e6be758be2433b902b40857acd93e22a37cf92bec3b6444b07cde4",
+    "dependencySha256": "72b3d7c7c2ffa6d9c388d3d26624d7194488fc099752958d529f9fc3d4d6eb41",
+    "baseline": "backups/firebase_spriv2_baseline_20261012T235135Z",
+    "baselineLockSha256": "9c3058905167c147e8feefaa3ec85c26b730113853a407dfd344b06981bb705a",
+    "expiresAt": "2026-10-13T05:52:05.103Z",
+    "functionCount": 138,
+    "releasedFunctionCount": 138,
+    "targetFunctions": [
+      "firebaseOperationsReconciliation",
+      "linkAccountWithCode",
+      "manageStoreRecord",
+      "setStoreOperationalAvailability",
+      "settleStoreDues",
+      "updateStoreAdminStatus"
+    ],
+    "existingTargetFunctions": [
+      "firebaseOperationsReconciliation",
+      "linkAccountWithCode",
+      "manageStoreRecord",
+      "setStoreOperationalAvailability",
+      "settleStoreDues",
+      "updateStoreAdminStatus"
+    ],
+    "newTargetFunctions": [],
+    "untouchedFunctionCount": 132,
+    "databaseRules": "realtime-database-after-functions",
+    "applyRequired": true,
+    "rollback": {
+      "restoresFunctions": [
+        "firebaseOperationsReconciliation",
+        "linkAccountWithCode",
+        "manageStoreRecord",
+        "setStoreOperationalAvailability",
+        "settleStoreDues",
+        "updateStoreAdminStatus"
+      ],
+      "deletesNewFunctions": [],
+      "restoresRules": true,
+      "databaseDataDeleted": false
+    }
+  },
+  "release": {
+    "ok": true,
+    "mode": "apply",
+    "project": "sela-food-prod",
+    "release": "store-privacy-retention-prod-v2",
+    "deployedFunctions": [
+      "firebaseOperationsReconciliation",
+      "linkAccountWithCode",
+      "manageStoreRecord",
+      "setStoreOperationalAvailability",
+      "settleStoreDues",
+      "updateStoreAdminStatus"
+    ],
+    "deployedRules": "realtime-database",
+    "functionCount": 138,
+    "untouchedFunctionCount": 132,
+    "untouchedFunctionsUnchanged": true,
+    "healthVerified": true,
+    "healthState": "baseline",
+    "healthUnchanged": true,
+    "databaseRules": "released-and-verified",
+    "rollbackRequired": false,
+    "baseline": "firebase_spriv2_baseline_20261012T235135Z"
+  },
+  "catalog": {
+    "ok": true,
+    "mode": "full",
+    "providerConnection": false,
+    "sourceFingerprint": "e3d64b76b6412e6986f4fb8c49d20d91838f1963816ec2c62d86dbe62d997e30",
+    "stages": [
+      {
+        "name": "format-contract",
+        "durationSeconds": 2.702
+      },
+      {
+        "name": "server-store-menu",
+        "durationSeconds": 42.59
+      },
+      {
+        "name": "server-store-external-contracts",
+        "durationSeconds": 56.377
+      },
+      {
+        "name": "server-customer-courier-syntax",
+        "durationSeconds": 0.051
+      },
+      {
+        "name": "server-customer-courier-contracts",
+        "durationSeconds": 0.252
+      },
+      {
+        "name": "shared-location-contracts",
+        "durationSeconds": 3.512
+      },
+      {
+        "name": "customer-auth-otp-contracts",
+        "durationSeconds": 3.951
+      },
+      {
+        "name": "customer-cancellation-rtdb-rules",
+        "durationSeconds": 9.904
+      },
+      {
+        "name": "external-delivery-privacy-rtdb-rules",
+        "durationSeconds": 9.544
+      },
+      {
+        "name": "admin-behavior-and-contracts",
+        "durationSeconds": 35.845
+      },
+      {
+        "name": "store-consumer-contracts",
+        "durationSeconds": 30.333
+      },
+      {
+        "name": "customer-consumer-contracts",
+        "durationSeconds": 12.179
+      }
+    ]
+  },
+  "driver": {
+    "ok": true,
+    "mode": "driver-dispatch-flow-gate",
+    "stages": [
+      "format",
+      "auth-operational-session",
+      "driver-runtime",
+      "admin-driver-realtime",
+      "server-dispatch"
+    ],
+    "sourceSha256": "293556fafc0b0b93477dbdee7b463620bb45db2e1d335d423b15ea854192893d",
+    "sourceFileCount": 787,
+    "providerConnection": false,
+    "deployment": "none"
+  },
+  "targetedTests": {
+    "passed": 88,
+    "failed": 0,
+    "skipped": 0,
+    "finalRetentionSuitePassed": 24
+  },
+  "rulesEmulator": {
+    "passed": 41,
+    "failed": 0,
+    "skipped": 0
+  },
+  "deletionIntegration": {
+    "ok": true,
+    "emulatorOnly": true,
+    "realAuthDeletion": true,
+    "staleTokenDenied": true,
+    "refreshDenied": true,
+    "orderSnapshotPiiErased": true,
+    "financePreserved": true,
+    "storageStubbed": true
+  },
+  "unchangedAppSourceFiles": 167,
+  "appVersion": "1.0.1+30",
+  "rulesChange": "One linkedStoreId index; access expressions unchanged",
+  "liveTest": {
+    "dedicatedPendingAccount": true,
+    "ok": true,
+    "steps": [
+      "fixture paths absent",
+      "dedicated anonymous session created",
+      "refresh token valid before deletion",
+      "pending account created without operational store",
+      "owner status pending",
+      "callable deletion completed",
+      "Auth account no longer available",
+      "refresh token rejected",
+      "old session cannot recreate account"
+    ],
+    "oldSessionResponse": {
+      "httpStatus": 400,
+      "status": "FAILED_PRECONDITION"
+    },
+    "finishedAt": "2026-10-13T00:00:11.412Z"
+  },
+  "retainedNameAndFinanceByOwnerDecision": true,
+  "completePersonalDataErasureClaim": false,
+  "limitations": [
+    "Real merchant accounts not deleted or tested",
+    "Full merchant/media/finance flow tested locally, not against real production accounts",
+    "Storage stubbed in emulator",
+    "Name and linked identifiers remain; legal retention basis not established",
+    "No iOS physical device or new app binary, no App Store submission"
+  ],
+  "files": [
+    {
+      "path": "server_worker/src/store_privacy_retention.js",
+      "sha256": "2fb05224ae54f950873fafe28299391605229afd49c628425d0de2c33cda5e36"
+    },
+    {
+      "path": "server_worker/test/store_privacy_retention_test.js",
+      "sha256": "de35a45bfd9645e998e0b4b06bc533423c4222067113a410f63aa4c972b85261"
+    },
+    {
+      "path": "database.rules.json",
+      "sha256": "6d0bfaf3b960e54700eb9962b494a4a8d369c70ed4eefde15a83f66f657444d4"
+    }
+  ]
+}

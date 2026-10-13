@@ -6,7 +6,9 @@ void main() {
   late String source;
 
   setUpAll(() {
-    source = File('lib/src/pages/store_home_page.dart').readAsStringSync();
+    source = File('lib/src/pages/store_home_page.dart')
+        .readAsStringSync()
+        .replaceAll('\r\n', '\n');
   });
 
   String section(String startMarker, String endMarker) {

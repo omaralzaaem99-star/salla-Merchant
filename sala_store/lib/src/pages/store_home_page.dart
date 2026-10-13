@@ -348,6 +348,7 @@ class _StoreHomePageState extends State<StoreHomePage>
   StreamSubscription<RemoteMessage>? _foregroundMessageSubscription;
   StreamSubscription<RemoteMessage>? _messageOpenedSubscription;
   int _pushRegistrationGeneration = 0;
+  Timer? _pushTokenRetry;
   final SallaPushEventDeduplicator _foregroundPushDeduplicator =
       SallaPushEventDeduplicator();
   final SallaPushEventDeduplicator _openedPushDeduplicator =
@@ -1721,14 +1722,6 @@ class _StoreHomePageState extends State<StoreHomePage>
         sound: true,
       );
 
-      final token = await messaging.getToken();
-      if (token != null && token.isNotEmpty) {
-        await _saveMessagingToken(
-          token,
-          expectedStoreId: ownerStoreId,
-          expectedGeneration: generation,
-        );
-      }
       if (!mounted ||
           generation != _pushRegistrationGeneration ||
           ownerStoreId != storeId) {
@@ -1742,6 +1735,7 @@ class _StoreHomePageState extends State<StoreHomePage>
             expectedGeneration: generation,
           ),
         ),
+        onError: (Object _) {},
       );
       _foregroundMessageSubscription = FirebaseMessaging.onMessage.listen((
         message,
@@ -1767,12 +1761,51 @@ class _StoreHomePageState extends State<StoreHomePage>
       _messageOpenedSubscription = FirebaseMessaging.onMessageOpenedApp.listen(
         _openOrderFromPushMessage,
       );
+      unawaited(_registerPushToken(ownerStoreId, generation));
       final initialMessage = await messaging.getInitialMessage();
       if (initialMessage != null) {
         unawaited(_openOrderFromPushMessage(initialMessage));
       }
     } catch (_) {
       // Realtime order updates remain active if push registration is unavailable.
+    }
+  }
+
+  Future<void> _registerPushToken(
+    String owner,
+    int generation, [
+    int attempt = 0,
+  ]) async {
+    bool current() =>
+        mounted &&
+        generation == _pushRegistrationGeneration &&
+        owner == storeId;
+    if (!current()) return;
+    _pushTokenRetry?.cancel();
+    try {
+      final messaging = FirebaseMessaging.instance;
+      final token = await storeMessagingToken(
+        needsApns: !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS,
+        apnsToken: messaging.getAPNSToken,
+        messagingToken: messaging.getToken,
+      );
+      if (!current()) return;
+      if (token != null && token.isNotEmpty) {
+        await _saveMessagingToken(
+          token,
+          expectedStoreId: owner,
+          expectedGeneration: generation,
+        );
+        return;
+      }
+    } catch (_) {
+      // Recover on a bounded timer and when returning to the foreground.
+    }
+    if (current() && attempt < 3) {
+      _pushTokenRetry = Timer(
+        Duration(seconds: 5 * (attempt + 1)),
+        () => unawaited(_registerPushToken(owner, generation, attempt + 1)),
+      );
     }
   }
 
@@ -1841,6 +1874,7 @@ class _StoreHomePageState extends State<StoreHomePage>
 
   Future<void> _removeMessagingToken() async {
     _pushRegistrationGeneration += 1;
+    _pushTokenRetry?.cancel();
     _foregroundPushDeduplicator.clear();
     _openedPushDeduplicator.clear();
     final tokenSubscription = _messagingTokenSubscription;
@@ -1908,6 +1942,7 @@ class _StoreHomePageState extends State<StoreHomePage>
     _settlementPreviewTimer = null;
     _authStateSubscription?.cancel();
     _authStateSubscription = null;
+    _pushTokenRetry?.cancel();
     unawaited(_cancelLiveSubscriptions());
     _messagingTokenSubscription?.cancel();
     _foregroundMessageSubscription?.cancel();
@@ -1921,6 +1956,7 @@ class _StoreHomePageState extends State<StoreHomePage>
     if (widget.isGuest) return;
     if (state == AppLifecycleState.resumed) {
       _appIsResumed = true;
+      unawaited(_registerPushToken(storeId, _pushRegistrationGeneration));
       _lastSharedLocationFailureId = '';
       unawaited(_inspectPendingSharedLocation());
       _requestLiveRestart(resetAttempt: true, refreshToken: true);
@@ -1929,6 +1965,7 @@ class _StoreHomePageState extends State<StoreHomePage>
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.detached) {
       _appIsResumed = false;
+      _pushTokenRetry?.cancel();
       _liveRetryTimer?.cancel();
       _liveRetryTimer = null;
       _cancelAllInitialLiveEventWatchdogs();
@@ -2996,6 +3033,7 @@ class _StoreHomePageState extends State<StoreHomePage>
         ),
         actions: [
           _storeStatusPill(),
+          const StoreSupportCallButton(),
           PopupMenuButton<int>(
             tooltip: 'المزيد',
             icon: const Icon(Icons.more_vert_rounded),
@@ -4252,81 +4290,98 @@ class _StoreHomePageState extends State<StoreHomePage>
     final newCount = _orders.where(_isNewStoreOrder).length;
     final readyCount = _orders.where(_isReadyStoreOrder).length;
     final returningCount = _orders.where(_isReturningStoreOrder).length;
-    return Column(
-      children: [
-        Container(
-          key: const ValueKey<String>('store_orders_compact_summary'),
-          margin: const EdgeInsets.fromLTRB(16, 7, 16, 2),
-          padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 9),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: const Color(0xFFE2E8F0)),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x090F172A),
-                blurRadius: 12,
-                offset: Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  color: appColor.withValues(alpha: 0.09),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Icon(
-                  Icons.receipt_long_rounded,
-                  color: appColor,
-                  size: 20,
-                ),
-              ),
-              const SizedBox(width: 8),
-              const Expanded(
-                child: Text(
-                  'طلبات المتجر',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: darkText,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 5),
-              _compactCounter('جديد', newCount, orangeColor),
-              const SizedBox(width: 4),
-              _compactCounter('جاهز', readyCount, Colors.blue),
-              const SizedBox(width: 4),
-              _compactCounter('إرجاع', returningCount, Colors.red),
-            ],
-          ),
+    final headers = <Widget>[
+      Container(
+        key: const ValueKey<String>('store_orders_compact_summary'),
+        margin: const EdgeInsets.fromLTRB(16, 7, 16, 2),
+        padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 9),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: const Color(0xFFE2E8F0)),
+          boxShadow: const [
+            BoxShadow(
+              color: Color(0x090F172A),
+              blurRadius: 12,
+              offset: Offset(0, 4),
+            ),
+          ],
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-          child: Row(
-            children: [
-              _filterChip('active', 'النشطة'),
-              _filterChip('courier_report', 'سجل طلب مندوبك'),
-              _filterChip('new', 'الجديدة'),
-              _filterChip('ready', 'الجاهزة'),
-              _filterChip('returning', 'الإرجاع'),
-              _filterChip('completed', 'المكتملة'),
-              _filterChip('cancelled', 'الملغاة'),
-            ],
-          ),
+        child: Row(
+          children: [
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: appColor.withValues(alpha: 0.09),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(
+                Icons.receipt_long_rounded,
+                color: appColor,
+                size: 20,
+              ),
+            ),
+            const SizedBox(width: 8),
+            const Expanded(
+              child: Text(
+                'طلبات المتجر',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: darkText,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+            ),
+            const SizedBox(width: 5),
+            _compactCounter('جديد', newCount, orangeColor),
+            const SizedBox(width: 4),
+            _compactCounter('جاهز', readyCount, Colors.blue),
+            const SizedBox(width: 4),
+            _compactCounter('إرجاع', returningCount, Colors.red),
+          ],
         ),
-        if (!widget.isGuest &&
-            const {'completed', 'cancelled'}.contains(_filter))
-          _storeHistorySummaryCard(),
-        Expanded(child: _ordersListBody()),
-      ],
+      ),
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+        child: Row(
+          children: [
+            _filterChip('active', 'النشطة'),
+            _filterChip('courier_report', 'سجل طلب مندوبك'),
+            _filterChip('new', 'الجديدة'),
+            _filterChip('ready', 'الجاهزة'),
+            _filterChip('returning', 'الإرجاع'),
+            _filterChip('completed', 'المكتملة'),
+            _filterChip('cancelled', 'الملغاة'),
+          ],
+        ),
+      ),
+      if (!widget.isGuest && const {'completed', 'cancelled'}.contains(_filter))
+        _storeHistorySummaryCard(),
+    ];
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Preserve the usual fixed header, but let it scroll when a short
+        // viewport or accessibility text would consume the orders area.
+        final scale = MediaQuery.textScalerOf(context).scale(14) / 14;
+        if (constraints.maxHeight < 240 * scale) {
+          return NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) => [
+              SliverToBoxAdapter(child: Column(children: headers)),
+            ],
+            body: _ordersListBody(),
+          );
+        }
+        return Column(
+          children: [
+            ...headers,
+            Expanded(child: _ordersListBody()),
+          ],
+        );
+      },
     );
   }
 
@@ -4796,41 +4851,8 @@ class _StoreHomePageState extends State<StoreHomePage>
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: StorePublicLinks(
-              onRequestDeletion: () {
-                final expectedStore = storeId;
-                final expectedUid = sallaIdentity.uid;
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => StorePrivacyRequestPage(
-                      storeId: expectedStore,
-                      call: (payload) async {
-                        if (storeId != expectedStore ||
-                            sallaIdentity.uid != expectedUid)
-                          throw StateError('تغير حساب المتجر.');
-                        final response =
-                            await FirebaseFunctions.instanceFor(
-                                  region: 'europe-west1',
-                                )
-                                .httpsCallable(
-                                  'manageStoreRecord',
-                                  options: HttpsCallableOptions(
-                                    timeout: const Duration(seconds: 35),
-                                  ),
-                                )
-                                .call<dynamic>(payload);
-                        if (storeId != expectedStore ||
-                            sallaIdentity.uid != expectedUid)
-                          throw StateError('تغير حساب المتجر.');
-                        if (response.data is! Map)
-                          throw const FormatException(
-                            'استجابة الخصوصية غير صالحة.',
-                          );
-                        return Map<String, dynamic>.from(response.data as Map);
-                      },
-                    ),
-                  ),
-                );
-              },
+              onRequestDeletion: () =>
+                  openStorePrivacyDeletion(context, storeId: storeId),
             ),
           ),
         ),
@@ -6719,9 +6741,7 @@ class _StoreHomePageState extends State<StoreHomePage>
         ? 'محفوظ في سجل الطلبات المكتملة'
         : !hasDriver
         ? storeDriverPlanningText(order)
-        : order.driverPhone.trim().isEmpty
-        ? driverStageLabel(order.driverStage)
-        : '${driverStageLabel(order.driverStage)} • ${order.driverPhone}';
+        : driverStageLabel(order.driverStage);
     final color = order.isCancelled
         ? Colors.red
         : order.isDelivered
@@ -6771,6 +6791,8 @@ class _StoreHomePageState extends State<StoreHomePage>
               ),
             ],
           ),
+          if (hasDriver && order.driverPhone.trim().isNotEmpty)
+            StoreDriverContact(phone: order.driverPhone),
           if (order.hasTrustedLiveDriverLocation) ...[
             const SizedBox(height: 10),
             Container(
@@ -7196,7 +7218,7 @@ class _StoreHomePageState extends State<StoreHomePage>
                       ? 'سيظهر رقم السائق بعد قبول الطلب'
                       : driverPhone.isEmpty
                       ? 'السائق: ${order.driverName} • الرقم غير متوفر بعد'
-                      : 'السائق: ${order.driverName} • $driverPhone',
+                      : 'السائق: ${order.driverName}',
                   style: const TextStyle(
                     color: Color(0xFF334155),
                     fontWeight: FontWeight.w800,
@@ -7205,6 +7227,8 @@ class _StoreHomePageState extends State<StoreHomePage>
               ),
             ],
           ),
+          if (order.driverName.trim().isNotEmpty && driverPhone.isNotEmpty)
+            StoreDriverContact(phone: driverPhone),
         ],
       ),
     );
